@@ -1,16 +1,40 @@
-// Server API makes it possible to hook into various parts of Gridsome
-// on server-side and add custom data to the GraphQL data layer.
-// Learn more: https://gridsome.org/docs/server-api/
+const { API_URL_WP } = require("./src/config");
 
-// Changes here require a server restart.
-// To restart press CTRL + C in terminal and run `gridsome develop`
+const axios = require("axios");
 
-module.exports = function (api) {
-  api.loadSource(({ addCollection }) => {
-    // Use the Data Store API here: https://gridsome.org/docs/data-store-api/
-  })
+const normalizeWordPressPost = (item) => {
+  return {
+    id: item.ID || item.id,
+    title: item.post_title,
+    slug: item.post_name,
+    date: item.post_date,
+    content: item.post_content,
+    type: item.post_type,
+    customFields: item.custom_fields,
+  };
+};
 
-  api.createPages(({ createPage }) => {
-    // Use the Pages API here: https://gridsome.org/docs/pages-api/
-  })
-}
+const getPosts = async (actions) => {
+  const { data } = await axios.get(`${API_URL_WP}/posts`);
+  const collection = actions.addCollection("Post");
+  for (const item of data) {
+    collection.addNode(normalizeWordPressPost(item));
+  }
+};
+
+const getProducts = async (actions) => {
+  const { data } = await axios.get(`${API_URL_WP}/products`);
+  const collection = actions.addCollection("Product");
+  for (const item of data) {
+    collection.addNode(normalizeWordPressPost(item));
+  }
+};
+
+module.exports = (api) => {
+  api.loadSource(async (actions) => {
+    await getPosts(actions);
+    await getProducts(actions);
+  });
+
+  api.createPages(({ createPage }) => {});
+};
