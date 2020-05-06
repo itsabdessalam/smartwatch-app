@@ -1,6 +1,4 @@
-const { API_URL_WP } = require("./src/config");
-
-const axios = require("axios");
+const WPService = require("./src/services/WPService");
 
 const normalizeWordPressPost = (item) => {
   return {
@@ -15,7 +13,8 @@ const normalizeWordPressPost = (item) => {
 };
 
 const getPosts = async (actions) => {
-  const { data } = await axios.get(`${API_URL_WP}/posts`);
+  const { data } = await WPService.getPosts();
+
   const collection = actions.addCollection("Post");
   for (const item of data) {
     collection.addNode(normalizeWordPressPost(item));
@@ -23,7 +22,7 @@ const getPosts = async (actions) => {
 };
 
 const getProducts = async (actions) => {
-  const { data } = await axios.get(`${API_URL_WP}/products`);
+  const { data } = await WPService.getProducts();
   const collection = actions.addCollection("Product");
   for (const item of data) {
     collection.addNode(normalizeWordPressPost(item));
