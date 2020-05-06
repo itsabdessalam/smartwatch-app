@@ -9,7 +9,7 @@
     <div class="post content-box">
       <div class="post__header">
         <g-image
-          alt="Cover image"
+          alt="Post preview"
           v-if="$page.post.customFields.image"
           :src="$page.post.customFields.image"
         />

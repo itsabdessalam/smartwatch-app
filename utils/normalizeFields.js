@@ -7,6 +7,7 @@ module.exports = (fields) => {
       date: fields.post_date,
       content: fields.post_content,
       type: fields.post_type,
+      status: fields.post_status,
       customFields: fields.custom_fields,
     };
   }

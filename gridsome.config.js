@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 module.exports = {
-  siteName: "Gridsome",
+  siteName: "smartwatch",
   plugins: [],
   templates: {
     Post: "/posts/:slug",

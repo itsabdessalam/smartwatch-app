@@ -7,9 +7,11 @@
     </div>
 
     <div class="product content-box">
-      <div class="product__header">
+      <div class="product__preview">
         <g-image
-          alt="Cover image"
+          alt="Product preview"
+          width="270"
+          height="275"
           v-if="$page.product.customFields.image"
           :src="$page.product.customFields.image"
         />
@@ -57,4 +59,23 @@ query Product ($id: ID!) {
 }
 </page-query>
 
-<style></style>
+<style lang="scss">
+.product {
+  .product__preview {
+    width: 270px;
+    height: 275px;
+    overflow: hidden;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      height: 90%;
+      width: auto;
+      margin: auto;
+      display: block;
+    }
+  }
+}
+</style>
