@@ -1,31 +1,20 @@
 const WPService = require("./src/services/WPService");
-
-const normalizeWordPressPost = (item) => {
-  return {
-    id: item.ID || item.id,
-    title: item.post_title,
-    slug: item.post_name,
-    date: item.post_date,
-    content: item.post_content,
-    type: item.post_type,
-    customFields: item.custom_fields,
-  };
-};
+const normalizeFields = require("./src/utils/normalizeFields");
 
 const getPosts = async (actions) => {
   const { data } = await WPService.getPosts();
 
   const collection = actions.addCollection("Post");
-  for (const item of data) {
-    collection.addNode(normalizeWordPressPost(item));
+  for (const post of data) {
+    collection.addNode(normalizeFields(post));
   }
 };
 
 const getProducts = async (actions) => {
   const { data } = await WPService.getProducts();
   const collection = actions.addCollection("Product");
-  for (const item of data) {
-    collection.addNode(normalizeWordPressPost(item));
+  for (const product of data) {
+    collection.addNode(normalizeFields(product));
   }
 };
 
