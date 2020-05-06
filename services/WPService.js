@@ -2,10 +2,10 @@ const { API_URL_WP } = require("../config");
 const axios = require("axios");
 
 module.exports = {
-  getPosts: () => {
+  getPosts() {
     return axios.get(`${API_URL_WP}/posts`);
   },
-  getProducts: () => {
+  getProducts() {
     return axios.get(`${API_URL_WP}/products`);
   },
 };

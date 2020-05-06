@@ -7,9 +7,11 @@
     "explore": "gridsome explore"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.5.0",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
-    "gridsome": "^0.7.0"
+    "gridsome": "^0.7.0",
+    "stripe": "^8.49.0"
   },
   "devDependencies": {
     "node-sass": "^4.14.1",

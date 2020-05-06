@@ -1,0 +1,6 @@
+module.exports = {
+  LOCALE: "fr-FR",
+  API_URL_WP: process.env.GRIDSOME_API_URL_WP,
+  STRIPE_SECRET_KEY: process.env.GRIDSOME_STRIPE_SECRET_KEY,
+  STRIPE_PUBLIC_KEY: process.env.GRIDSOME_STRIPE_PUBLIC_KEY,
+};

@@ -1,5 +1,6 @@
-const WPService = require("./src/services/WPService");
-const normalizeFields = require("./src/utils/normalizeFields");
+const WPService = require("./services/WPService");
+const StripeService = require("./services/StripeService");
+const normalizeFields = require("./utils/normalizeFields");
 
 const getPosts = async (actions) => {
   const { data } = await WPService.getPosts();
