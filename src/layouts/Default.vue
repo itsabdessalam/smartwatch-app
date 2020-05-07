@@ -1,50 +1,32 @@
 <template>
   <div class="layout">
-    <header class="header">
-      <strong>
-        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
-      </strong>
-      <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about/">About</g-link>
-        <g-link class="nav__link" to="/products/test/">Test</g-link>
-      </nav>
-    </header>
-    <slot />
+    <Header />
+    <main class="content">
+      <slot />
+    </main>
+    <Footer />
   </div>
 </template>
 
-<static-query>
-query {
-  metadata {
-    siteName
-  }
-}
-</static-query>
+<script>
+import Header from "~/components/layout/Header";
+import Footer from "~/components/layout/Footer";
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
-
+export default {
+  components: {
+    Header,
+    Footer,
+  },
+};
+</script>
+<style lang="scss">
 .layout {
-  max-width: 760px;
+  max-width: 1190px;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+  padding: 0 12px;
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  height: 80px;
-}
-
-.nav__link {
-  margin-left: 20px;
+  .content {
+    padding: 75px 0;
+  }
 }
 </style>

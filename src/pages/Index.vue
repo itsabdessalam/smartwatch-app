@@ -1,23 +1,17 @@
 <template>
   <Layout>
-    <section class="header">Ici carousel</section>
-    <section class="products">
+    <section class="hero">Ici carousel</section>
+    <section>
       Ici produits
-
-      <div v-for="edge in $page.products.edges" :key="edge.node.id">
-        <g-link :to="`/products/${edge.node.slug}`">{{
-          edge.node.title
-        }}</g-link>
-      </div>
     </section>
-    <section class="posts">Ici posts</section>
+    <section>Ici posts</section>
     <section class="contact-us">Ici newsletter</section>
   </Layout>
 </template>
 
 <page-query>
 query {
-  products: allProduct(filter: { status: { eq: "publish" }}) {
+  products: allProduct(filter: { status: { eq: "publish" } }, limit: 3) {
     edges {
       node {
         id
@@ -43,7 +37,7 @@ query {
 export default {
   components: {},
   metaInfo: {
-    title: "Hello, world!",
+    title: "Home",
   },
 };
 </script>
