@@ -15,6 +15,6 @@ export default {
 <style lang="scss">
 .header {
   margin-bottom: 20px;
-  height: 80px;
+  height: 120px;
 }
 </style>

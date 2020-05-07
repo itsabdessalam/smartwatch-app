@@ -1,6 +1,13 @@
 <template>
   <Layout>
-    <section class="hero">Ici carousel</section>
+    <section class="hero">
+      <Slider ref="slider">
+        <div class="slide">Item 1</div>
+        <div class="slide">Item 2</div>
+        <div class="slide">Item 3</div>
+        <div class="slide">Item 4</div>
+      </Slider>
+    </section>
     <section>
       Ici produits
     </section>
@@ -34,8 +41,12 @@ query {
 </page-query>
 
 <script>
+import Slider from "~/components/elements/Slider";
+
 export default {
-  components: {},
+  components: {
+    Slider,
+  },
   metaInfo: {
     title: "Home",
   },

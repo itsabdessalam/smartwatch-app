@@ -1,13 +1,12 @@
 <template lang="">
   <g-link class="logo" to="/">
-    <g-image src="~/assets/images/logo.png" width="120" />
+    smartwatch
   </g-link>
 </template>
 
 <style lang="scss">
 .logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
 }
 </style>

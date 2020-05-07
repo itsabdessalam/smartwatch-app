@@ -12,14 +12,14 @@ html {
     font-family: "Circular", "Helvetica", "Arial", sans-serif;
     line-height: 1.45;
     letter-spacing: -0.2px;
-    background-color: $background;
-    color: $text;
+    background-color: var(--background);
+    color: var(--text);
     text-align: left;
   }
 
   a {
     text-decoration: none;
-    color: $text;
+    color: var(--text);
     transition: opacity 0.2s;
     &:hover {
       opacity: 0.8;
@@ -28,6 +28,10 @@ html {
 
   img {
     max-width: 100%;
+  }
+
+  span {
+    display: block;
   }
 }
 

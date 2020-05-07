@@ -6,6 +6,7 @@
       <g-link class="nav__link" to="/products/">Products</g-link>
       <g-link class="nav__link" to="/about/">About</g-link>
       <g-link class="nav__link" to="/news/">News</g-link>
+      <g-link class="nav__link" to="/news/">Contact</g-link>
       <g-link class="nav__link nav__link--icon" to="/login/"
         ><svg
           xmlns="http://www.w3.org/2000/svg"

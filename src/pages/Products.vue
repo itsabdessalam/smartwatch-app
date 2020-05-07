@@ -19,7 +19,10 @@
               />
             </div>
             <div class="product__caption">
-              {{ edge.node.title }}
+              <span class="product__name"> {{ edge.node.title }}</span>
+              <span class="product__brand">
+                {{ edge.node.customFields.brand.post_title }}</span
+              >
             </div>
           </g-link>
         </div>
@@ -74,12 +77,11 @@ export default {
 
       > a {
         display: flex;
-        align-items: center;
         justify-content: center;
         flex-direction: column;
         width: 100%;
         background-color: #ffffff;
-        padding: 40px 20px;
+        padding: 20px;
         overflow: hidden;
       }
 
@@ -101,7 +103,12 @@ export default {
         }
       }
       .product__caption {
-        margin-top: 24px;
+        margin-top: 32px;
+
+        .product__brand {
+          color: var(--subtitle);
+          font-size: 14px;
+        }
       }
     }
   }
