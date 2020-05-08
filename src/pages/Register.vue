@@ -1,14 +1,14 @@
 <template>
   <Layout>
-    <h1>Login</h1>
-    <button @click="login">Click here!</button>
+    <h1>Register</h1>
+    <button @click="register">Click here!</button>
   </Layout>
 </template>
 
 <script>
 export default {
   metaInfo: {
-    title: "Login",
+    title: "Register",
   },
   data() {
     return {
@@ -16,21 +16,22 @@ export default {
       authStatus: "",
       authStatusMessage: "",
       fields: {
+        name: "",
         email: "",
         password: "",
       },
     };
   },
   methods: {
-    login() {
+    register() {
       const data = {
+        name: "toto",
         email: "test@test.com",
         password: "12345678",
       };
-      console.log("toto", this.$store);
-
+      console.log("toto");
       this.$store
-        .dispatch("login", data)
+        .dispatch("register", data)
         .then(() => {
           console.log("success", this.$router);
           this.$router.push("/account");

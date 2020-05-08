@@ -3,11 +3,11 @@
     <Logo />
     <div class="nav__links">
       <g-link class="nav__link" to="/">Home</g-link>
-      <g-link class="nav__link" to="/products/">Products</g-link>
-      <g-link class="nav__link" to="/about/">About</g-link>
-      <g-link class="nav__link" to="/news/">News</g-link>
-      <g-link class="nav__link" to="/news/">Contact</g-link>
-      <g-link class="nav__link nav__link--icon" to="/login/"
+      <g-link class="nav__link" to="/products">Products</g-link>
+      <g-link class="nav__link" to="/about">About</g-link>
+      <g-link class="nav__link" to="/news">News</g-link>
+      <g-link class="nav__link" to="/contact">Contact</g-link>
+      <g-link class="nav__link nav__link--icon" to="/login"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -22,7 +22,7 @@
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
           <circle cx="12" cy="7" r="4"></circle></svg
       ></g-link>
-      <g-link class="nav__link nav__link--icon" to="/cart/">
+      <g-link class="nav__link nav__link--icon" to="/cart">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

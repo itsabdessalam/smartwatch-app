@@ -1,6 +1,11 @@
 module.exports = {
-  LOCALE: "fr-FR",
+  LOCALE: "en-EN",
+  ENV: process.env.NODE_ENV,
   API_URL_WP: process.env.GRIDSOME_API_URL_WP,
+  API_URL_AUTH: process.env.GRIDSOME_API_URL_AUTH,
+  LOCAL_STORAGE_PREFIX: process.env.GRIDSOME_LOCAL_STORAGE_PREFIX,
+  AUTH_TOKEN: process.env.GRIDSOME_LOCAL_STORAGE_PREFIX + "auth_token",
+  CURR_USER: process.env.GRIDSOME_LOCAL_STORAGE_PREFIX + "curr_user",
   STRIPE_SECRET_KEY: process.env.GRIDSOME_STRIPE_SECRET_KEY,
   STRIPE_PUBLIC_KEY: process.env.GRIDSOME_STRIPE_PUBLIC_KEY,
 };
