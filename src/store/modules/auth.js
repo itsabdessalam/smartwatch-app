@@ -5,7 +5,9 @@ import { localStorage } from "../../../utils";
 
 const state = {
   token: localStorage.getItem(AUTH_TOKEN) || "",
-  user: JSON.parse(localStorage.getItem(CURR_USER)) || {},
+  user: localStorage.getItem(CURR_USER)
+    ? JSON.parse(localStorage.getItem(CURR_USER))
+    : {},
   status: "",
   hasLoadedOnce: false,
 };
