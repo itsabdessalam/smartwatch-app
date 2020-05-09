@@ -144,7 +144,7 @@ export default {
 
     .slide__content__title {
       font-size: 48px;
-      margin-bottom: 48px;
+      margin-bottom: 54px;
     }
 
     .slide__content__inner {
