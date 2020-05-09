@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     async redirectToCheckout(event) {
-      console.log("toto", this.stripe);
       const { error } = await this.stripe.redirectToCheckout({
         items: [
           { sku: "sku_HEMt4aFesiEmM9", quantity: 1 },

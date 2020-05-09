@@ -27,16 +27,13 @@ export default {
         email: "test@test.com",
         password: "12345678",
       };
-      console.log("toto", this.$store);
 
       this.$store
         .dispatch("login", data)
         .then(() => {
-          console.log("success", this.$router);
           this.$router.push("/account");
         })
         .catch((error) => {
-          console.log("failed", error);
           this.authStatus = this.$store.getters.authStatus;
           this.authStatusMessage = error.message;
         });

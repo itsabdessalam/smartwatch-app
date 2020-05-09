@@ -1,6 +1,7 @@
 import AuthService from "../../../services/AuthService";
 import { AUTH_TOKEN, CURR_USER } from "../../../config";
-import { deepClone } from "../../../utils";
+import { deepClone } from "../../../utils/object";
+import { localStorage } from "../../../utils";
 
 const state = {
   token: localStorage.getItem(AUTH_TOKEN) || "",

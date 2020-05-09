@@ -39,8 +39,6 @@ export default {
         } else {
           first.classList.add("active");
         }
-
-        console.log("toto");
       }, 6000);
     },
   },
