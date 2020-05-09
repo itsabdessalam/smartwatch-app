@@ -101,9 +101,9 @@ export default {
     .slide__content__left {
       display: flex;
       align-items: flex-start;
-      justify-content: flex-end;
+      justify-content: center;
       flex-direction: column;
-      padding: 80px 48px;
+      padding: 48px;
     }
 
     .slide__content__right {
