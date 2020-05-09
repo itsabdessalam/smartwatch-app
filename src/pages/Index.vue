@@ -103,7 +103,7 @@ export default {
       align-items: flex-start;
       justify-content: flex-end;
       flex-direction: column;
-      padding: 48px;
+      padding: 80px 48px;
     }
 
     .slide__content__right {
