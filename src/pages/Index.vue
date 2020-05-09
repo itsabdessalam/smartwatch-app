@@ -101,7 +101,7 @@ export default {
     .slide__content__left {
       display: flex;
       align-items: flex-start;
-      justify-content: space-between;
+      justify-content: flex-end;
       flex-direction: column;
       padding: 48px;
     }
@@ -144,6 +144,7 @@ export default {
 
     .slide__content__title {
       font-size: 48px;
+      margin-bottom: 48px;
     }
 
     .slide__content__inner {
