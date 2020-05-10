@@ -1,10 +1,10 @@
 <template>
   <Layout>
-    <section class="hero">
+    <section class="section" data-section="hero">
       <Slider ref="slider">
         <div
-          v-for="edge in $page.products.edges"
-          :key="edge.node.id"
+          v-for="product in featuredProducts"
+          :key="product.node.id"
           class="slide"
         >
           <div class="container">
@@ -14,12 +14,12 @@
                   Discover our latest products
                 </h2>
                 <div class="slide__content__inner">
-                  <span class="slide__title"> {{ edge.node.title }}</span>
+                  <span class="slide__title"> {{ product.node.title }}</span>
                   <span class="slide__subtitle">{{
-                    edge.node.customFields.brand.post_title
+                    product.node.brand.name
                   }}</span>
                   <g-link
-                    :to="`/products/${edge.node.slug}`"
+                    :to="`/products/${product.node.slug}`"
                     class="slide__cta"
                   >
                     Shop
@@ -29,8 +29,8 @@
               <div class="slide__content__right col-5">
                 <g-image
                   alt="Product preview"
-                  v-if="edge.node.customFields.image"
-                  :src="edge.node.customFields.image"
+                  v-if="product.node.image"
+                  :src="product.node.image"
                 />
               </div>
             </div>
@@ -38,9 +38,83 @@
         </div>
       </Slider>
     </section>
-    <section>Products</section>
-    <section>News</section>
-    <section>Newsletter</section>
+    <section class="section" data-section="products">
+      <div class="section__header">
+        <h2 class="section__title">
+          Products
+        </h2>
+        <g-link :to="`/products`">
+          View all
+        </g-link>
+      </div>
+      <div class="section__content">
+        <div class="products container">
+          <div class="products__grid row">
+            <div
+              v-for="product in products"
+              :key="product.node.id"
+              class="product col-4"
+            >
+              <g-link :to="`/products/${product.node.slug}`">
+                <div class="product__preview">
+                  <g-image
+                    alt="Product preview"
+                    width="270"
+                    height="275"
+                    v-if="product.node.image"
+                    :src="product.node.image"
+                  />
+                </div>
+                <div class="product__caption">
+                  <span class="product__name"> {{ product.node.title }}</span>
+                  <span class="product__brand">
+                    {{ product.node.brand.name }}
+                  </span>
+                  <span class="product__price">{{ product.node.price }} €</span>
+                </div>
+              </g-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" data-section="news">
+      <div class="section__header">
+        <h2 class="section__title">
+          News
+        </h2>
+        <g-link :to="`/news`">
+          View all
+        </g-link>
+      </div>
+      <div class="section__content">
+        <div class="posts container">
+          <div class="posts__grid row">
+            <div v-for="post in posts" :key="post.node.id" class="post col-4">
+              <g-link :to="`/posts/${post.node.slug}`">
+                <span class="post__title">{{ post.node.title }}</span>
+                <span class="post__date">
+                  {{ post.node.date | toLocaleDate }}
+                </span>
+              </g-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" data-section="newsletter">
+      <div class="container">
+        <div class="newsletter__content">
+          <h2>
+            Newsletter
+          </h2>
+          <p>
+            Subscribe to get special offers, free giveaways, and
+            once-in-a-lifetime deals.
+          </p>
+        </div>
+      </div>
+    </section>
   </Layout>
 </template>
 
@@ -55,17 +129,19 @@ query {
         slug
         date
         type
-        customFields {
-          color
-          brand {
-            post_title
-          }
-          image
+        image
+        description
+        sku
+        price
+        color
+        brand {
+          name 
+          slug
         }
       }
     }
   }
-  posts: allProduct(filter: { status: { eq: "publish" } }, limit: 3) {
+  posts: allPost(filter: { status: { eq: "publish" } }, limit: 6) {
     edges {
       node {
         id
@@ -74,6 +150,7 @@ query {
         slug
         date
         type
+        image
       }
     }
   }
@@ -82,10 +159,25 @@ query {
 
 <script>
 import Slider from "~/components/elements/Slider";
+import { shuffle } from "../../utils/array";
 
 export default {
+  data() {
+    return {
+      featuredProducts: [],
+      products: [],
+      posts: [],
+    };
+  },
   components: {
     Slider,
+  },
+  created() {
+    if (this.$page) {
+      this.featuredProducts = this.$page.products.edges.slice(0, 6);
+      this.products = shuffle(this.$page.products.edges).slice(0, 3);
+      this.posts = this.$page.posts.edges.slice(0, 3);
+    }
   },
   metaInfo: {
     title: "Home",
@@ -94,65 +186,174 @@ export default {
 </script>
 
 <style lang="scss">
-.slide {
-  .slide__content {
-    height: 100%;
+.slider {
+  .slide {
+    .slide__content {
+      height: 100%;
 
-    .slide__content__left {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      flex-direction: column;
-      padding: 48px;
-    }
+      .slide__content__left {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        padding: 48px;
+      }
 
-    .slide__content__right {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      .slide__content__right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-      > img {
-        max-width: 290px;
+        > img {
+          max-width: 290px;
+        }
+      }
+
+      .slide__title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .slide__subtitle {
+        color: var(--subtitle);
+      }
+
+      .slide__cta {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all ease-out 0.2s;
+        background-color: transparent;
+        font-size: 14px;
+        min-width: 120px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        transition: all ease-out 0.2s;
+        color: #ffffff;
+        background-color: var(--primary);
+      }
+
+      .slide__content__title {
+        font-size: 48px;
+        margin-bottom: 54px;
+      }
+
+      .slide__content__inner {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
       }
     }
+  }
+}
 
-    .slide__title {
-      font-size: 20px;
-      font-weight: 600;
-    }
+.section__header {
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    .slide__subtitle {
-      color: var(--subtitle);
-    }
+.products {
+  padding: 0;
 
-    .slide__cta {
-      margin-top: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all ease-out 0.2s;
-      background-color: transparent;
-      font-size: 14px;
-      min-width: 120px;
-      padding: 12px 24px;
-      border: none;
-      cursor: pointer;
-      transition: all ease-out 0.2s;
-      color: #ffffff;
-      background-color: var(--primary);
-    }
+  .products__grid {
+    margin-left: -12px;
+    margin-right: -12px;
 
-    .slide__content__title {
-      font-size: 48px;
-      margin-bottom: 54px;
-    }
+    .product {
+      padding: 12px;
 
-    .slide__content__inner {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      flex-direction: column;
+      > a {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 20px;
+        overflow: hidden;
+      }
+
+      .product__preview {
+        height: 275px;
+        width: 100%;
+        overflow: hidden;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          object-fit: contain;
+          width: 100%;
+          height: 100%;
+          margin: auto;
+          display: block;
+        }
+      }
+      .product__caption {
+        margin-top: 32px;
+
+        .product__brand {
+          color: var(--subtitle);
+          font-size: 14px;
+        }
+      }
     }
+  }
+}
+
+.posts {
+  .posts__grid {
+    margin-left: -12px;
+    margin-right: -12px;
+
+    .post {
+      padding: 12px;
+
+      > a {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 20px;
+        overflow: hidden;
+      }
+
+      .post__title {
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
+
+      .post__date {
+        font-size: 14px;
+        color: var(--subtitle);
+      }
+    }
+  }
+}
+
+[data-section="newsletter"] {
+  margin-top: 48px;
+  background-color: #ffffff;
+  padding: 40px;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  .newsletter__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
   }
 }
 </style>

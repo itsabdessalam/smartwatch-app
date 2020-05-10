@@ -12,8 +12,8 @@
           alt="Product preview"
           width="270"
           height="275"
-          v-if="$page.product.customFields.image"
-          :src="$page.product.customFields.image"
+          v-if="$page.product.image"
+          :src="$page.product.image"
         />
       </div>
 
@@ -52,8 +52,14 @@ query Product ($id: ID!) {
         slug
         date
         type
-        customFields {
-            image
+        image
+        description
+        sku
+        price
+        color
+        brand {
+          name 
+          slug
         }
     }
 }

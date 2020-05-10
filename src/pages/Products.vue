@@ -14,15 +14,14 @@
                 alt="Product preview"
                 width="270"
                 height="275"
-                v-if="edge.node.customFields.image"
-                :src="edge.node.customFields.image"
+                v-if="edge.node.image"
+                :src="edge.node.image"
               />
             </div>
             <div class="product__caption">
-              <span class="product__name"> {{ edge.node.title }}</span>
-              <span class="product__brand">
-                {{ edge.node.customFields.brand.post_title }}</span
-              >
+              <span class="product__name">{{ edge.node.title }}</span>
+              <span class="product__brand">{{ edge.node.brand.name }}</span>
+              <span class="product__price">{{ edge.node.price }} €</span>
             </div>
           </g-link>
         </div>
@@ -42,12 +41,14 @@ query {
         slug
         date
         type
-        customFields {
-          color
-          brand {
-            post_title
-          }
-          image
+        image
+        description
+        sku
+        price
+        color
+        brand {
+          name 
+          slug
         }
       }
     }

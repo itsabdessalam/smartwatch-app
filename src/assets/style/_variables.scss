@@ -1,8 +1,9 @@
-body {
+:root {
   --primary: #15161c;
   --background: #f6f8f9;
   --text: #15161c;
   --subtitle: #696b79;
+  --outline: 3px solid rgba(#15161c, 0.6);
 
   --success: #2ecc71;
   --error: #e74c3c;

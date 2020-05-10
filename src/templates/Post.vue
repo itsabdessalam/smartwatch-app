@@ -10,8 +10,8 @@
       <div class="post__header">
         <g-image
           alt="Post preview"
-          v-if="$page.post.customFields.image"
-          :src="$page.post.customFields.image"
+          v-if="$page.post.image"
+          :src="$page.post.image"
         />
       </div>
 
@@ -50,9 +50,7 @@ query Post ($id: ID!) {
         slug
         date
         type
-        customFields {
-            image
-        }
+        image
     }
 }
 </page-query>
