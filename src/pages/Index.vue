@@ -9,7 +9,7 @@
         >
           <div class="container">
             <div class="slide__content row">
-              <div class="slide__content__left col-7">
+              <div class="slide__content__item--left col-7">
                 <h2 class="slide__content__title">
                   Discover our latest products
                 </h2>
@@ -26,7 +26,7 @@
                   </g-link>
                 </div>
               </div>
-              <div class="slide__content__right col-5">
+              <div class="slide__content__item--right col-5">
                 <g-image
                   alt="Product preview"
                   v-if="product.node.image"
@@ -104,14 +104,30 @@
     </section>
     <section class="section" data-section="newsletter">
       <div class="container">
-        <div class="newsletter__content">
-          <h2>
-            Newsletter
-          </h2>
-          <p>
-            Subscribe to get special offers, free giveaways, and
-            once-in-a-lifetime deals.
-          </p>
+        <div class="newsletter__content row">
+          <div class="newsletter__content__item--right col-5">
+            <h2>
+              Newsletter
+            </h2>
+            <p>
+              Subscribe to get special offers and free giveaways
+            </p>
+          </div>
+          <div class="newsletter__content__item--left col-7">
+            <form class="newsletter__form" method="POST" novalidate="true">
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                placeholder="Your email address"
+                required
+              />
+              <button type="submit">
+                Subscribe
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
@@ -191,7 +207,7 @@ export default {
     .slide__content {
       height: 100%;
 
-      .slide__content__left {
+      .slide__content__item--left {
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -199,7 +215,7 @@ export default {
         padding: 48px;
       }
 
-      .slide__content__right {
+      .slide__content__item--right {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -226,7 +242,7 @@ export default {
         transition: all ease-out 0.2s;
         background-color: transparent;
         font-size: 14px;
-        min-width: 120px;
+        min-width: 100px;
         padding: 12px 24px;
         border: none;
         cursor: pointer;
@@ -340,20 +356,60 @@ export default {
 [data-section="newsletter"] {
   margin-top: 48px;
   background-color: #ffffff;
-  padding: 40px;
+  padding: 40px 20px;
 
   h2 {
     margin-top: 0;
+    margin-bottom: 8px;
   }
 
   .newsletter__content {
+  }
+
+  .newsletter__content__item--right {
+  }
+
+  .newsletter__content__item--left {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
+    justify-content: flex-end;
+
+    .newsletter__form {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+
+      label {
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap;
+      }
+      input {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all ease-out 0.2s;
+        background-color: transparent;
+        font-size: 14px;
+        min-width: 100px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        transition: all ease-out 0.2s;
+        color: #ffffff;
+        background-color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+    }
   }
 }
 </style>
