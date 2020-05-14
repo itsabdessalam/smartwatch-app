@@ -1,22 +1,20 @@
 <template>
   <Layout>
-    <div class="post-title">
-      <h1 class="post-title__text">
-        {{ $page.post.title }}
-      </h1>
-    </div>
-
-    <div class="post content-box">
+    <div class="post">
       <div class="post__header">
+        <div class="post__title">
+          <h1 class="post__title__text">
+            {{ $page.post.title }}
+          </h1>
+        </div>
         <g-image
-          alt="Post preview"
           v-if="$page.post.image"
+          :alt="$page.post.title"
           :src="$page.post.image"
+          class="post__cover"
         />
       </div>
-
       <div class="post__content" v-html="$page.post.content" />
-
       <div class="post__footer"></div>
     </div>
 
@@ -55,4 +53,10 @@ query Post ($id: ID!) {
 }
 </page-query>
 
-<style></style>
+<style lang="scss">
+.post {
+  .post__header {
+    margin-bottom: 24px;
+  }
+}
+</style>

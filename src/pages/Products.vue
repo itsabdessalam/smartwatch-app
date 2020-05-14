@@ -107,7 +107,7 @@ export default {
         margin-top: 32px;
 
         .product__brand {
-          color: var(--subtitle);
+          color: $subtitle;
           font-size: 14px;
         }
       }

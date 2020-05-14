@@ -12,14 +12,14 @@ html {
     font-family: "Circular", "Helvetica", "Arial", sans-serif;
     line-height: 1.45;
     letter-spacing: -0.2px;
-    background-color: var(--background);
-    color: var(--text);
+    background-color: $background;
+    color: $text;
     text-align: left;
   }
 
   a {
     text-decoration: none;
-    color: var(--text);
+    color: $text;
     transition: opacity 0.2s;
 
     &:hover {

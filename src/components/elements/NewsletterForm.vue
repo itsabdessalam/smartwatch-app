@@ -12,23 +12,18 @@
         </div>
         <div class="newsletter__content__item--left col-7">
           <form class="newsletter__form" method="POST" novalidate="true">
-            <div class="field">
-              <label>Email</label>
-              <input
-                class="input"
-                :class="{ 'has-error': hasError('email') }"
-                type="email"
-                name="email"
-                autocomplete="email"
-                placeholder="Your email address"
-                required
-                v-model="fields.email"
-                @keydown="resetError('email')"
-              />
-              <p v-if="hasError('email')" class="help error">
-                {{ hasError("email") }}
-              </p>
-            </div>
+            <label for="email">Email</label>
+            <input
+              class="input"
+              :class="{ 'has-error': hasError('email') }"
+              type="email"
+              name="email"
+              autocomplete="email"
+              placeholder="Your email address"
+              required
+              v-model="fields.email"
+              @keydown="resetError('email')"
+            />
             <button
               type="submit"
               class="button-primary submit"
@@ -37,6 +32,9 @@
               Subscribe
             </button>
           </form>
+          <p v-if="hasError('email')" class="help error">
+            {{ hasError("email") }}
+          </p>
         </div>
       </div>
     </div>
@@ -96,8 +94,8 @@ export default {
 
   .newsletter__content__item--left {
     display: flex;
-    align-items: center;
     justify-content: flex-end;
+    flex-direction: column;
 
     .newsletter__form {
       display: flex;
@@ -131,8 +129,8 @@ export default {
         cursor: pointer;
         transition: all ease-out 0.2s;
         color: #ffffff;
-        background-color: var(--primary);
-        border: 1px solid var(--primary);
+        background-color: $primary;
+        border: 2px solid $primary;
       }
     }
   }

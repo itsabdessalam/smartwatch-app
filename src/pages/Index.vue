@@ -110,7 +110,7 @@
 
 <page-query>
 query {
-  products: allProduct(filter: { status: { eq: "publish" } }, limit: 6) {
+  products: allProduct(filter: { status: { eq: "publish" } }) {
     edges {
       node {
         id
@@ -131,7 +131,7 @@ query {
       }
     }
   }
-  posts: allPost(filter: { status: { eq: "publish" } }, limit: 6) {
+  posts: allPost(filter: { status: { eq: "publish" } }, limit: 3) {
     edges {
       node {
         id
@@ -207,7 +207,7 @@ export default {
       }
 
       .slide__subtitle {
-        color: var(--subtitle);
+        color: $subtitle;
       }
 
       .slide__cta {
@@ -224,7 +224,7 @@ export default {
         cursor: pointer;
         transition: all ease-out 0.2s;
         color: #ffffff;
-        background-color: var(--primary);
+        background-color: $primary;
       }
 
       .slide__content__title {
@@ -290,7 +290,7 @@ export default {
         margin-top: 32px;
 
         .product__brand {
-          color: var(--subtitle);
+          color: $subtitle;
           font-size: 14px;
         }
       }
@@ -323,7 +323,7 @@ export default {
 
       .post__date {
         font-size: 14px;
-        color: var(--subtitle);
+        color: $subtitle;
       }
     }
   }

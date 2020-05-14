@@ -36,14 +36,14 @@ export default {
 
   &--primary {
     color: #ffffff;
-    background-color: var(--primary);
+    background-color: $primary;
   }
 
   &:disabled,
   &[disabled] {
     cursor: not-allowed;
     opacity: 0.8;
-    background-color: var(--primary) !important;
+    background-color: $primary !important;
   }
 }
 </style>
