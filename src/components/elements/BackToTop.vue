@@ -64,7 +64,7 @@ export default {
   width: 48px;
   height: 48px;
   color: #ffffff;
-  background: $text;
+  background: $primary;
   cursor: pointer;
   transform: translateY(250px);
   transition: 0.5s transform ease-out;
