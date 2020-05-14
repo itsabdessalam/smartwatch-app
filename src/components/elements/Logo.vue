@@ -1,5 +1,5 @@
 <template lang="">
-  <g-link class="logo" to="/">
+  <g-link class="logo" title="Home" to="/">
     smartwatch
   </g-link>
 </template>

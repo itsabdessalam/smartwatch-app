@@ -5,8 +5,8 @@
     </div>
     <div class="slider__controls">
       <div class="slider__controls__prev">
-        <a @click="previous"
-          ><svg
+        <a @click="previous" title="Go to previous slide">
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -18,12 +18,13 @@
             stroke-linejoin="round"
           >
             <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline></svg
-        ></a>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </a>
       </div>
-      <div class="slider__controls__prev">
-        <a @click="next"
-          ><svg
+      <div class="slider__controls__next">
+        <a @click="next" title="Go to next slide">
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"

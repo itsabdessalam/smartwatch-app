@@ -2,13 +2,15 @@
   <nav class="nav">
     <Logo />
     <div class="nav__links">
-      <g-link class="nav__link" to="/">Home</g-link>
-      <g-link class="nav__link" to="/products">Products</g-link>
-      <g-link class="nav__link" to="/about">About</g-link>
-      <g-link class="nav__link" to="/news">News</g-link>
-      <g-link class="nav__link" to="/contact">Contact</g-link>
-      <g-link class="nav__link nav__link--icon" to="/login"
-        ><svg
+      <g-link class="nav__link" to="/" title="Home">Home</g-link>
+      <g-link class="nav__link" to="/products" title="Products">
+        Products
+      </g-link>
+      <g-link class="nav__link" to="/about" title="About">About</g-link>
+      <g-link class="nav__link" to="/news" title="News">News</g-link>
+      <g-link class="nav__link" to="/contact" title="Contact">Contact</g-link>
+      <g-link class="nav__link nav__link--icon" to="/login" title="Login">
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -20,9 +22,10 @@
           stroke-linejoin="round"
         >
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle></svg
-      ></g-link>
-      <g-link class="nav__link nav__link--icon" to="/cart">
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </g-link>
+      <g-link class="nav__link nav__link--icon" to="/cart" title="Cart">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -36,8 +39,9 @@
         >
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
           <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path></svg
-      ></g-link>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+      </g-link>
     </div>
   </nav>
 </template>

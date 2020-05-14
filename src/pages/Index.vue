@@ -21,6 +21,7 @@
                   <g-link
                     :to="`/products/${product.node.slug}`"
                     class="slide__cta"
+                    title="View product"
                   >
                     Shop
                   </g-link>
@@ -43,7 +44,7 @@
         <h2 class="section__title">
           Products
         </h2>
-        <g-link :to="`/products`">
+        <g-link :to="`/products`" title="View all products">
           View all
         </g-link>
       </div>
@@ -55,7 +56,10 @@
               :key="product.node.id"
               class="product col-4"
             >
-              <g-link :to="`/products/${product.node.slug}`">
+              <g-link
+                :to="`/products/${product.node.slug}`"
+                :title="`View ${product.node.title}`"
+              >
                 <div class="product__preview">
                   <g-image
                     alt="Product preview"
@@ -83,7 +87,7 @@
         <h2 class="section__title">
           News
         </h2>
-        <g-link :to="`/news`">
+        <g-link :to="`/news`" title="View all news">
           View all
         </g-link>
       </div>
@@ -91,7 +95,10 @@
         <div class="posts container">
           <div class="posts__grid row">
             <div v-for="post in posts" :key="post.node.id" class="post col-4">
-              <g-link :to="`/posts/${post.node.slug}`">
+              <g-link
+                :to="`/posts/${post.node.slug}`"
+                :title="`View ${post.node.title}`"
+              >
                 <span class="post__title">{{ post.node.title }}</span>
                 <span class="post__date">
                   {{ post.node.date | toLocaleDate }}
