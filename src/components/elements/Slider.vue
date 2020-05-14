@@ -63,17 +63,17 @@ export default {
       this.slides = [].slice.call(this.$el.querySelectorAll(".slide"));
       this.slides[0].classList.add("active");
 
-      this.intervalId = setInterval(() => {
-        const active = this.$el.querySelector(".active");
+      // this.intervalId = setInterval(() => {
+      //   const active = this.$el.querySelector(".active");
 
-        active.classList.remove("active");
+      //   active.classList.remove("active");
 
-        if (active.nextSibling) {
-          active.nextSibling.classList.add("active");
-        } else {
-          this.slides[0].classList.add("active");
-        }
-      }, 6000);
+      //   if (active.nextSibling) {
+      //     active.nextSibling.classList.add("active");
+      //   } else {
+      //     this.slides[0].classList.add("active");
+      //   }
+      // }, 6000);
     },
     next() {
       const active = this.$el.querySelector(".active");

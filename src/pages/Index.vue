@@ -335,4 +335,39 @@ export default {
     }
   }
 }
+
+@media (max-width: $phone) {
+  .slider {
+    height: 620px;
+    .slide {
+      .slide__content {
+        align-items: center;
+        justify-content: center;
+        flex-direction: column-reverse;
+
+        .slide__content__item--left {
+          padding: 24px;
+        }
+
+        .slide__content__item--right {
+          padding: 24px;
+          > img {
+            max-width: 220px;
+          }
+        }
+
+        .slide__content__title {
+          margin-bottom: 16px;
+          margin-top: 0;
+          font-size: 32px;
+        }
+      }
+    }
+
+    .slider__controls {
+      bottom: 24px;
+      right: 12px;
+    }
+  }
+}
 </style>
