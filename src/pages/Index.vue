@@ -338,7 +338,7 @@ export default {
 
 @media (max-width: $phone) {
   .slider {
-    height: 620px;
+    height: 590px;
     .slide {
       .slide__content {
         align-items: center;
@@ -361,12 +361,23 @@ export default {
           margin-top: 0;
           font-size: 32px;
         }
+
+        .slide__title {
+          font-size: 16px;
+        }
+      }
+
+      .slide__cta {
+        width: 100%;
+      }
+
+      .slide__content__inner {
+        width: 100%;
       }
     }
 
     .slider__controls {
-      bottom: 24px;
-      right: 12px;
+      display: none;
     }
   }
 }

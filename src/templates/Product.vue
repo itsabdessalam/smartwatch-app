@@ -44,7 +44,7 @@ export default {
     async addToCart() {
       const payload = {
         quantity: this.quantity,
-        sku: this.product.sku,
+        ...this.product,
       };
       await this.$store.commit("addToCart", payload);
     },

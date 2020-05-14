@@ -14,14 +14,16 @@ const getters = {
       return 0;
     }
 
-    return state.cart.reduce((ac, next) => ac + next.quantity, 0);
+    return state.cart.reduce((ac, next) => ac + next.quantity, 0) * 1;
   },
   cartTotal: (state) => {
     if (!state.cart.length) {
       return 0;
     }
 
-    return state.cart.reduce((ac, next) => ac + next.price, 0);
+    return (
+      state.cart.reduce((ac, next) => ac + next.quantity * next.price, 0) * 1
+    );
   },
 };
 
@@ -44,6 +46,7 @@ const mutations = {
   },
   clearCart: (state) => {
     state.cart = [];
+    localStorage.setItem(CART, JSON.stringify(state.cart));
   },
 };
 

@@ -27,7 +27,7 @@ html {
     }
 
     &:focus {
-      outline: 3px solid rgba(#15161c, 0);
+      outline: 3px solid rgba($text, 0);
       outline-offset: 2px;
     }
   }
@@ -39,6 +39,42 @@ html {
   span {
     display: block;
   }
+}
+
+.table {
+  background-color: #ffffff;
+  color: $text;
+  width: 100%;
+}
+
+.table td,
+.table th {
+  border: solid rgba(128, 128, 128, 0.1);
+  border-width: 0 0 1px;
+  padding: 12px 24px;
+  vertical-align: middle;
+}
+
+.table th {
+  color: $text;
+}
+
+.table thead {
+  background-color: transparent;
+}
+
+.table thead td,
+.table thead th {
+  border-width: 0 0 2px;
+  color: $text;
+}
+.table tbody {
+  background-color: transparent;
+}
+
+.table tbody tr:last-child td,
+.table tbody tr:last-child th {
+  border-bottom-width: 0;
 }
 
 .page__title {
