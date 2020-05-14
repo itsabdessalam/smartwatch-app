@@ -103,33 +103,7 @@
       </div>
     </section>
     <section class="section" data-section="newsletter">
-      <div class="container">
-        <div class="newsletter__content row">
-          <div class="newsletter__content__item--right col-5">
-            <h2>
-              Newsletter
-            </h2>
-            <p>
-              Subscribe to get special offers and free giveaways
-            </p>
-          </div>
-          <div class="newsletter__content__item--left col-7">
-            <form class="newsletter__form" method="POST" novalidate="true">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                autocomplete="email"
-                placeholder="Your email address"
-                required
-              />
-              <button type="submit">
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+      <NewsletterForm />
     </section>
   </Layout>
 </template>
@@ -175,6 +149,7 @@ query {
 
 <script>
 import Slider from "~/components/elements/Slider";
+import NewsletterForm from "~/components/elements/NewsletterForm";
 import { shuffle } from "../../utils/array";
 
 export default {
@@ -187,6 +162,7 @@ export default {
   },
   components: {
     Slider,
+    NewsletterForm,
   },
   created() {
     if (this.$page) {
@@ -348,66 +324,6 @@ export default {
       .post__date {
         font-size: 14px;
         color: var(--subtitle);
-      }
-    }
-  }
-}
-
-[data-section="newsletter"] {
-  margin-top: 48px;
-  background-color: #ffffff;
-  padding: 40px 20px;
-
-  h2 {
-    margin-top: 0;
-    margin-bottom: 8px;
-  }
-
-  .newsletter__content {
-  }
-
-  .newsletter__content__item--right {
-  }
-
-  .newsletter__content__item--left {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    .newsletter__form {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      width: 100%;
-
-      label {
-        position: absolute !important;
-        height: 1px;
-        width: 1px;
-        overflow: hidden;
-        clip: rect(1px, 1px, 1px, 1px);
-        white-space: nowrap;
-      }
-      input {
-        width: 100%;
-        padding: 12px 16px;
-        font-size: 14px;
-      }
-      button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all ease-out 0.2s;
-        background-color: transparent;
-        font-size: 14px;
-        min-width: 100px;
-        padding: 12px 24px;
-        border: none;
-        cursor: pointer;
-        transition: all ease-out 0.2s;
-        color: #ffffff;
-        background-color: var(--primary);
-        border: 1px solid var(--primary);
       }
     }
   }
