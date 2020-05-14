@@ -105,11 +105,9 @@ export default {
   components: { Logo },
   computed: {
     cart() {
-      console.log("cart", this.$store.getters.cart);
       return this.$store.getters.cart;
     },
     cartCount() {
-      console.log("cartCount", this.$store.getters.cartCount);
       return this.$store.getters.cartCount;
     },
   },

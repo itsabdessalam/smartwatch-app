@@ -5,17 +5,20 @@
       <slot />
     </main>
     <Footer />
+    <BackToTop />
   </div>
 </template>
 
 <script>
 import Header from "~/components/layout/Header";
 import Footer from "~/components/layout/Footer";
+import BackToTop from "~/components/elements/BackToTop";
 
 export default {
   components: {
     Header,
     Footer,
+    BackToTop,
   },
 };
 </script>
