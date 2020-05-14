@@ -19,6 +19,8 @@
 
       <div class="product__content" v-html="$page.product.content" />
 
+      <button class="add" @click.prevent="addToCart">Add</button>
+
       <div class="product__footer"></div>
     </div>
 
@@ -28,6 +30,25 @@
 
 <script>
 export default {
+  data() {
+    return {
+      quantity: 1,
+      product: {},
+    };
+  },
+  created() {
+    this.product = this.$page.product;
+  },
+  mounted() {},
+  methods: {
+    async addToCart() {
+      const payload = {
+        quantity: this.quantity,
+        sku: this.product.sku,
+      };
+      await this.$store.commit("addToCart", payload);
+    },
+  },
   components: {},
   metaInfo() {
     return {
@@ -82,6 +103,23 @@ query Product ($id: ID!) {
       margin: auto;
       display: block;
     }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all ease-out 0.2s;
+    background-color: transparent;
+    font-size: 14px;
+    min-width: 100px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    transition: all ease-out 0.2s;
+    color: #ffffff;
+    background-color: $primary;
+    border: 2px solid $primary;
   }
 }
 </style>

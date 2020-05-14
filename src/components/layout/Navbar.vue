@@ -41,6 +41,9 @@
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <path d="M16 10a4 4 0 0 1-8 0"></path>
         </svg>
+        <span v-if="cartCount >= 1" class="nav__link__cart__count">
+          {{ cartCount }}
+        </span>
       </g-link>
     </div>
   </nav>
@@ -59,6 +62,7 @@
 
     .nav__link {
       margin-left: 20px;
+      position: relative;
       &--icon {
         display: flex;
         align-items: center;
@@ -74,6 +78,22 @@
           height: 18px;
         }
       }
+
+      .nav__link__cart__count {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 12px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+        color: #ffffff;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 }
@@ -83,5 +103,15 @@ import Logo from "~/components/elements/Logo";
 
 export default {
   components: { Logo },
+  computed: {
+    cart() {
+      console.log("cart", this.$store.getters.cart);
+      return this.$store.getters.cart;
+    },
+    cartCount() {
+      console.log("cartCount", this.$store.getters.cartCount);
+      return this.$store.getters.cartCount;
+    },
+  },
 };
 </script>

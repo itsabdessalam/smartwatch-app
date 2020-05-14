@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import NewsletterService from "../../../services/NewsletterService";
+
 export default {
   data() {
     return {
@@ -70,6 +72,15 @@ export default {
     },
     subscribe() {
       const isValidForm = this.checkForm(this.fields);
+
+      NewsletterService.subscribe(this.fields)
+        .then((response) => {
+          console.log("success", "subscribe => response", response);
+          this.$router.push("/newsletter-success");
+        })
+        .catch((error) => {
+          console.error("error", "subscribe => error", error);
+        });
     },
   },
 };

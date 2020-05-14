@@ -3,7 +3,10 @@
     <h1>
       Cart
     </h1>
-    <button @click="redirectToCheckout">Buy me</button>
+    <button @click="redirectToCheckout" :disabled="cartCount === 0">
+      Buy me
+    </button>
+    <button @click="clearCart" :disabled="cartCount < 1">Clear cart</button>
   </Layout>
 </template>
 
@@ -24,19 +27,25 @@ export default {
   methods: {
     async redirectToCheckout(event) {
       const { error } = await this.stripe.redirectToCheckout({
-        items: [
-          { sku: "sku_HEMt4aFesiEmM9", quantity: 1 },
-          {
-            sku: "sku_HEMr8DKrKUM05b",
-            quantity: 2,
-          },
-        ],
-        successUrl: `http://localhost:8080/about`,
-        cancelUrl: `http://localhost:8080/`,
+        items: [...this.cart],
+        customerEmail: "hello@abdessalam.dev",
+        successUrl: `http://localhost:8080/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `http://localhost:8080/cart?session_id={CHECKOUT_SESSION_ID}`,
       });
       if (error) {
         console.warn("Error:", error);
       }
+    },
+    async clearCart() {
+      await this.$store.commit("clearCart");
+    },
+  },
+  computed: {
+    cart() {
+      return this.$store.getters.cart;
+    },
+    cartCount() {
+      return this.$store.getters.cartCount;
     },
   },
 };
