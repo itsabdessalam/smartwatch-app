@@ -2,7 +2,9 @@ import { CART } from "../../../config";
 import { localStorage } from "../../../utils";
 
 const state = {
-  cart: JSON.parse(localStorage.getItem(CART)) || [],
+  cart: localStorage.getItem(CART)
+    ? JSON.parse(localStorage.getItem(CART))
+    : [],
 };
 
 const getters = {
