@@ -36,21 +36,12 @@
       <div class="cart__total">
         <span>Cart Total: {{ cartTotal }} €</span>
       </div>
-
-      <div class="cart__actions">
-        <button
-          @click="redirectToCheckout"
-          :disabled="cartCount === 0"
-          class="cart__actions__checkout"
-        >
-          Checkout
-        </button>
-        <button
-          @click="clearCart"
-          :disabled="cartCount < 1"
-          class="cart__actions__clear"
-        >
+      <div v-if="cartCount > 0" class="cart__actions">
+        <button @click="clearCart" class="cart__actions__clear">
           Clear cart
+        </button>
+        <button @click="redirectToCheckout" class="cart__actions__checkout">
+          Checkout
         </button>
       </div>
     </div>
@@ -118,6 +109,40 @@ export default {
   .cart__total {
     text-align: right;
     margin-top: 32px;
+  }
+
+  .cart__actions {
+    text-align: right;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .cart__actions__checkout,
+    .cart__actions__clear {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all ease-out 0.2s;
+      background-color: transparent;
+      font-size: 14px;
+      min-width: 100px;
+      padding: 12px 24px;
+      border: none;
+      cursor: pointer;
+      transition: all ease-out 0.2s;
+    }
+
+    .cart__actions__checkout {
+      color: #ffffff;
+      background-color: $primary;
+    }
+
+    .cart__actions__clear {
+      background-color: #ffffff;
+      margin-right: 12px;
+    }
   }
 }
 </style>

@@ -89,6 +89,12 @@ span {
   border: 0;
 }
 
+button:disabled,
+button[disabled] {
+  cursor: not-allowed !important;
+  opacity: 0.8 !important;
+}
+
 @media (min-width: 1025px) {
   #device:after {
     content: "desktop";

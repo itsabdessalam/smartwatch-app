@@ -26,6 +26,8 @@ const normalizeFields = (fields) => {
         description: fields.custom_fields.description,
         sku: fields.custom_fields.sku,
         price: fields.custom_fields.price,
+        amount: fields.custom_fields.amount,
+        currency: fields.custom_fields.currency,
         color: fields.custom_fields.color,
         brand: {
           name: fields.custom_fields.brand.post_title,
