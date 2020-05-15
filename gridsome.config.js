@@ -73,11 +73,11 @@ module.exports = {
             })
           );
 
-          if (process.env.NODE_ENV === "production") {
-            options.plugins.push(
-              require("@fullhuman/postcss-purgecss")(purgeConfig)
-            );
-          }
+          // if (process.env.NODE_ENV === "production") {
+          //   options.plugins.push(
+          //     require("@fullhuman/postcss-purgecss")(purgeConfig)
+          //   );
+          // }
 
           options.plugins.push(require("css-mqpacker")());
 
