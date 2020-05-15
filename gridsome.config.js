@@ -68,7 +68,6 @@ module.exports = {
                   },
                   discardUnused: true,
                   mergeIdents: true,
-                  reduceIdents: true,
                 },
               ],
             })
