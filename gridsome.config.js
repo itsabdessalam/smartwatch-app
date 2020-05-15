@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const purgeConfig = {
-  keyframes: true,
+  keyframes: false,
   content: [
     "./src/**/*.vue",
     "./src/**/*.js",
