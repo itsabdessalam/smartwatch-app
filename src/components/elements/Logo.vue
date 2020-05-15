@@ -6,6 +6,7 @@
 
 <style lang="scss">
 .logo {
+  display: block;
   font-size: 24px;
   font-weight: 600;
 }

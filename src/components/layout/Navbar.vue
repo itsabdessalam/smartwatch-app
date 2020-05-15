@@ -148,7 +148,7 @@ export default {
     }
 
     .nav__link {
-      margin-left: 20px;
+      margin-left: 24px;
       position: relative;
       &--icon {
         display: flex;
