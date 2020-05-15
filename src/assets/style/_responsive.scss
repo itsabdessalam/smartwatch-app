@@ -66,6 +66,32 @@
       display: none;
     }
   }
+
+  .product {
+    .product__preview {
+      height: 368px;
+    }
+
+    .product__details {
+      align-items: flex-start;
+      margin-top: 48px;
+
+      .product__actions {
+        flex-direction: column;
+        width: 100%;
+
+        .product__actions__add,
+        .product__actions__remove {
+          margin: 0;
+          width: 100%;
+        }
+
+        .product__actions__add {
+          margin-top: 12px;
+        }
+      }
+    }
+  }
 }
 
 [data-device="desktop"] {

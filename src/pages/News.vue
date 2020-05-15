@@ -74,7 +74,7 @@ export default {
       }
 
       .post__preview {
-        height: 275px;
+        height: 280px;
         width: 100%;
         overflow: hidden;
         background-color: #ffffff;

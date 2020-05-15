@@ -10,6 +10,7 @@
             <th></th>
             <th>Product</th>
             <th>Quantity</th>
+            <th>Amount</th>
             <th>Total</th>
             <th></th>
           </tr>
@@ -25,6 +26,7 @@
             </td>
             <td>{{ product.title }}</td>
             <td>{{ product.quantity }}</td>
+            <td>{{ product.price }} €</td>
             <td>{{ product.price * product.quantity }} €</td>
             <td></td>
           </tr>

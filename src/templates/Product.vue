@@ -1,30 +1,42 @@
 <template>
   <Layout>
-    <div class="product-title">
-      <h1 class="product-title__text">
-        {{ $page.product.title }}
-      </h1>
-    </div>
+    <div class="product">
+      <div class="container">
+        <div class="row">
+          <div class="product__preview col-7">
+            <g-image
+              alt="Product preview"
+              width="270"
+              height="280"
+              v-if="$page.product.image"
+              :src="$page.product.image"
+            />
+          </div>
+          <div class="product__details col-5">
+            <h1 class="product__title">
+              {{ $page.product.title }}
+            </h1>
+            <p class="product__brand">{{ $page.product.brand.name }}</p>
+            <p class="product__price">{{ $page.product.price }} €</p>
 
-    <div class="product content-box">
-      <div class="product__preview">
-        <g-image
-          alt="Product preview"
-          width="270"
-          height="275"
-          v-if="$page.product.image"
-          :src="$page.product.image"
-        />
+            <div class="product__actions">
+              <button
+                class="product__actions__remove"
+                @click.prevent="removeOneFromCart"
+              >
+                Remove
+              </button>
+              <button
+                class="product__actions__add"
+                @click.prevent="addOneToCart"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="product__content" v-html="$page.product.content" />
-
-      <button class="add" @click.prevent="addToCart">Add</button>
-
-      <div class="product__footer"></div>
     </div>
-
-    <div class="product-comments"></div>
   </Layout>
 </template>
 
@@ -41,12 +53,18 @@ export default {
   },
   mounted() {},
   methods: {
-    async addToCart() {
+    async addOneToCart() {
       const payload = {
         quantity: this.quantity,
         ...this.product,
       };
-      await this.$store.commit("addToCart", payload);
+      await this.$store.commit("addOneToCart", payload);
+    },
+    async removeOneFromCart() {
+      const payload = {
+        ...this.product,
+      };
+      await this.$store.commit("removeOneFromCart", payload);
     },
   },
   components: {},
@@ -89,8 +107,7 @@ query Product ($id: ID!) {
 <style lang="scss">
 .product {
   .product__preview {
-    width: 270px;
-    height: 275px;
+    height: 500px;
     overflow: hidden;
     background-color: #ffffff;
     display: flex;
@@ -98,28 +115,62 @@ query Product ($id: ID!) {
     justify-content: center;
 
     img {
-      height: 90%;
+      max-width: 290px;
       width: auto;
       margin: auto;
       display: block;
+      object-fit: contain;
     }
   }
 
-  button {
+  .product__details {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all ease-out 0.2s;
-    background-color: transparent;
-    font-size: 14px;
-    min-width: 100px;
-    padding: 12px 24px;
-    border: none;
-    cursor: pointer;
-    transition: all ease-out 0.2s;
-    color: #ffffff;
-    background-color: $primary;
-    border: 2px solid $primary;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+
+    .product__title {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .product__brand {
+      color: $subtitle;
+    }
+
+    .product__actions {
+      text-align: right;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      .product__actions__add,
+      .product__actions__remove {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all ease-out 0.2s;
+        background-color: transparent;
+        font-size: 14px;
+        min-width: 100px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        transition: all ease-out 0.2s;
+      }
+
+      .product__actions__add {
+        color: #ffffff;
+        background-color: $primary;
+      }
+
+      .product__actions__remove {
+        background-color: #ffffff;
+        margin-right: 12px;
+      }
+    }
   }
 }
 </style>

@@ -13,7 +13,7 @@
               <g-image
                 alt="Product preview"
                 width="270"
-                height="275"
+                height="280"
                 v-if="edge.node.image"
                 :src="edge.node.image"
               />
@@ -87,7 +87,7 @@ export default {
       }
 
       .product__preview {
-        height: 275px;
+        height: 280px;
         width: 100%;
         overflow: hidden;
         background-color: #ffffff;
