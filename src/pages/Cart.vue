@@ -64,7 +64,47 @@ export default {
     const stripePromise = await loadStripe(STRIPE_PUBLIC_KEY);
     this.stripe = await stripePromise;
   },
+  beforeDestroy() {
+    this.clearStripe();
+  },
   methods: {
+    getStripeControllerFrameNode() {
+      const frameId =
+        this.stripe && this.stripe._controller && this.stripe._controller._id;
+      if (!frameId) return;
+
+      return document.querySelector(`[name='${frameId}']`);
+    },
+
+    removeStripeControllerFrame() {
+      const frameNode = this.getStripeControllerFrameNode(this.stripe);
+
+      if (frameNode && frameNode.parentNode) {
+        frameNode.parentNode.removeChild(frameNode);
+      }
+    },
+    clearStripe() {
+      let id = window.setTimeout(() => {}, 0);
+      while (id--) {
+        window.clearTimeout(id);
+      }
+
+      this.stripe._controller._controllerFrame._removeAllListeners();
+      this.stripe._controller._controllerFrame._iframe.remove();
+
+      const stripeIframes = [
+        document.querySelectorAll("[name^=__privateStripeMetricsController]"),
+        document.querySelectorAll("[name^=__privateStripeController]"),
+      ];
+
+      stripeIframes.forEach((iframes) =>
+        iframes.forEach((iframe) => {
+          iframe.parentNode.removeChild(iframe);
+        })
+      );
+
+      this.removeStripeControllerFrame();
+    },
     async redirectToCheckout(event) {
       const { error } = await this.stripe.redirectToCheckout({
         items: [
