@@ -1,27 +1,55 @@
 require("dotenv").config();
-
-const path = require("path");
-
-function addStyleResource(rule) {
-  rule
-    .use("style-resource")
-    .loader("style-resources-loader")
-    .options({
-      patterns: [path.resolve(__dirname, "./src/assets/style/_variables.scss")],
-    });
-}
-
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 module.exports = {
   siteName: "smartwatch",
-  plugins: [],
+  plugins: [
+    {
+      use: "gridsome-plugin-purgecss",
+      options: {
+        content: [
+          "./src/**/*.vue",
+          "./src/**/*.js",
+          "./src/**/*.jsx",
+          "./src/**/*.pug",
+          "./src/**/*.md",
+        ],
+        defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [],
+      },
+    },
+  ],
   templates: {
     Post: "/posts/:slug",
     Product: "/products/:slug",
   },
-  chainWebpack: (config) => {
-    const types = ["vue-modules", "vue", "normal-modules", "normal"];
-    types.forEach((type) =>
-      addStyleResource(config.module.rule("scss").oneOf(type))
-    );
+
+  configureWebpack: {
+    plugins: [
+      new OptimizeCssAssetsPlugin({
+        cssProcessor: require("cssnano"),
+        cssProcessorPluginOptions: {
+          preset: [
+            "default",
+            {
+              discardComments: {
+                removeAll: true,
+              },
+              discardUnused: true,
+              mergeIdents: true,
+            },
+          ],
+        },
+        canPrint: true,
+      }),
+    ],
+  },
+  css: {
+    loaderOptions: {
+      scss: {
+        prependData: `@import "${require("path").resolve(
+          __dirname,
+          "./src/assets/style/_variables.scss"
+        )}";`,
+      },
+    },
   },
 };
