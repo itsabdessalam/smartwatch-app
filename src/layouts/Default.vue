@@ -32,12 +32,4 @@ export default {
     padding: 75px 0;
   }
 }
-
-@media (max-width: $phone) {
-  .layout {
-    .content {
-      padding: 0;
-    }
-  }
-}
 </style>

@@ -184,23 +184,4 @@ export default {
     }
   }
 }
-@media (max-width: $phone) {
-  .nav {
-    .nav__links {
-      &.nav__links--mobile {
-        display: block;
-      }
-
-      &.nav__links--desktop {
-        display: none;
-      }
-
-      .nav__links__inner {
-        &:not(.visible) {
-          display: none;
-        }
-      }
-    }
-  }
-}
 </style>

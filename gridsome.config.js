@@ -1,14 +1,47 @@
 require("dotenv").config();
 
-const purgecss = require("@fullhuman/postcss-purgecss");
-const postcssCombineMediaQuery = require("postcss-combine-media-query");
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-
-const postcssPlugins = [];
-
-if (process.env.NODE_ENV === "production") {
-  postcssPlugins.push();
-}
+const purgeConfig = {
+  keyframes: true,
+  content: [
+    "./src/**/*.vue",
+    "./src/**/*.js",
+    "./src/**/*.jsx",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.html",
+    "./src/**/*.pug",
+    "./src/**/*.md",
+    "./src/**/*.svg",
+  ],
+  whitelist: [
+    "body",
+    "html",
+    "img",
+    "a",
+    "g-image",
+    "g-image--lazy",
+    "g-image--loaded",
+    "active",
+    "active--exact",
+  ],
+  whitelistPatterns: [
+    /shiki/,
+    /prism/,
+    /token$/,
+    /markdown/,
+    /rich-text/,
+    /richtext/,
+    /.*-(enter|enter-active|enter-to|leave|leave-active|leave-to)/,
+    /data-v-.*/,
+    />>>/,
+    /::v-deep/,
+  ],
+  defaultExtractor: (content) => {
+    const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
+    const innerMatches = content.match(/[^<>"'`\s.()]*[^<>"'`\s.():]/g) || [];
+    return broadMatches.concat(innerMatches);
+  },
+};
 
 module.exports = {
   siteName: "smartwatch",
@@ -16,26 +49,44 @@ module.exports = {
     Post: "/posts/:slug",
     Product: "/products/:slug",
   },
-  configureWebpack: {
-    plugins: [
-      new OptimizeCssAssetsPlugin({
-        cssProcessor: require("cssnano"),
-        cssProcessorPluginOptions: {
-          preset: [
-            "default",
-            {
-              discardComments: {
-                removeAll: true,
-              },
-              discardUnused: true,
-              mergeIdents: true,
-            },
-          ],
-        },
-        canPrint: true,
-      }),
-    ],
+  chainWebpack: (config) => {
+    ["css", "scss", "sass", "less", "stylus", "postcss"].forEach((lang) => {
+      config.module
+        .rule(lang)
+        .oneOf("normal")
+        .use("postcss-loader")
+        .tap((options) => {
+          options.plugins = [];
+          options.plugins.push(
+            require("autoprefixer")(),
+            require("cssnano")({
+              preset: [
+                "default",
+                {
+                  discardComments: {
+                    removeAll: true,
+                  },
+                  discardUnused: true,
+                  mergeIdents: true,
+                  reduceIdents: true,
+                },
+              ],
+            })
+          );
+
+          if (process.env.NODE_ENV === "production") {
+            options.plugins.push(
+              require("@fullhuman/postcss-purgecss")(purgeConfig)
+            );
+          }
+
+          options.plugins.push(require("css-mqpacker")());
+
+          return options;
+        });
+    });
   },
+
   css: {
     loaderOptions: {
       scss: {
@@ -44,14 +95,6 @@ module.exports = {
           "./src/assets/style/_variables.scss"
         )}";`,
       },
-    },
-    postcss: {
-      plugins: [
-        postcssCombineMediaQuery(),
-        process.env.NODE_ENV === "production"
-          ? purgecss(require("./purgecss.config.js"))
-          : "",
-      ],
     },
   },
 };
