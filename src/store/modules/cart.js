@@ -65,6 +65,8 @@ const mutations = {
     state.cart[index].quantity
       ? state.cart[index].quantity--
       : state.cart.splice(index, 1);
+
+    localStorage.setItem(CART, JSON.stringify(state.cart));
   },
   clearCart: (state) => {
     state.cart = [];
