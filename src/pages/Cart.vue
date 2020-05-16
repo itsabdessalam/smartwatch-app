@@ -62,11 +62,32 @@ export default {
       stripe: null,
     };
   },
-  async mounted() {
-    const stripePromise = await loadStripe(STRIPE_PUBLIC_KEY);
-    this.stripe = await stripePromise;
+  mounted() {
+    this.includeStripe("js.stripe.com/v3/", () => {
+      this.configureStripe();
+    });
   },
   methods: {
+    includeStripe(URL, callback) {
+      let documentTag = document,
+        tag = "script",
+        object = documentTag.createElement(tag),
+        scriptTag = documentTag.getElementsByTagName(tag)[0];
+      object.src = "//" + URL;
+      if (callback) {
+        object.addEventListener(
+          "load",
+          function(e) {
+            callback(null, e);
+          },
+          false
+        );
+      }
+      scriptTag.parentNode.insertBefore(object, scriptTag);
+    },
+    configureStripe() {
+      this.stripe = window.Stripe(STRIPE_PUBLIC_KEY);
+    },
     async clearCart() {
       await this.$store.commit("clearCart");
     },
