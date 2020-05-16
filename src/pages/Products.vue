@@ -44,7 +44,7 @@ query {
         image
         description
         sku
-        price
+        amount
         color
         brand {
           name 
