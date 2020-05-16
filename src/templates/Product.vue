@@ -14,10 +14,10 @@
           </div>
           <div class="product__details col-5">
             <h1 class="product__title">
-              {{ $page.product.title }}
+              {{ $page.product.name }}
             </h1>
             <p class="product__brand">{{ $page.product.brand.name }}</p>
-            <p class="product__price">{{ $page.product.price }} €</p>
+            <p class="product__price">{{ $page.product.amount }} €</p>
 
             <div class="product__actions">
               <button
@@ -70,7 +70,7 @@ export default {
   components: {},
   metaInfo() {
     return {
-      title: this.$page.product.title,
+      title: this.$page.product.name,
       meta: [
         {
           name: "description",
@@ -86,7 +86,7 @@ export default {
 query Product ($id: ID!) {
     product: product (id: $id) {
         id
-        title
+        name
         content
         slug
         date
@@ -94,7 +94,8 @@ query Product ($id: ID!) {
         image
         description
         sku
-        price
+        amount
+        currency
         color
         brand {
           name 

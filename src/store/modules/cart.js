@@ -26,7 +26,7 @@ const getters = {
 
     return (
       state.cart.reduce(
-        (accumulator, next) => accumulator + next.quantity * next.price,
+        (accumulator, next) => accumulator + next.quantity * next.amount,
         0
       ) * 1
     );

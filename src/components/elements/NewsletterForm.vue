@@ -141,7 +141,6 @@ export default {
         transition: all ease-out 0.2s;
         color: #ffffff;
         background-color: $primary;
-        border: 2px solid $primary;
       }
     }
   }

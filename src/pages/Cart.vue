@@ -21,13 +21,13 @@
               <g-image
                 v-if="product.image"
                 :src="product.image"
-                :alt="product.title"
+                :alt="product.name"
               />
             </td>
-            <td>{{ product.title }}</td>
+            <td>{{ product.name }}</td>
             <td>{{ product.quantity }}</td>
-            <td>{{ product.price }} €</td>
-            <td>{{ product.price * product.quantity }} €</td>
+            <td>{{ product.amount }} €</td>
+            <td>{{ product.amount * product.quantity }} €</td>
             <td></td>
           </tr>
         </tbody>
@@ -42,7 +42,7 @@
         <button @click="clearCart" class="cart__actions__clear">
           Clear cart
         </button>
-        <button @click="redirectToCheckout" class="cart__actions__checkout">
+        <button @click="handleCheckout" class="cart__actions__checkout">
           Checkout
         </button>
       </div>
@@ -53,6 +53,7 @@
 <script>
 import { loadStripe } from "@stripe/stripe-js";
 import { STRIPE_PUBLIC_KEY } from "../../config";
+import StripeService from "../../services/StripeService";
 
 export default {
   data() {
@@ -124,6 +125,33 @@ export default {
     async clearCart() {
       await this.$store.commit("clearCart");
     },
+    async handleCheckout() {
+      const items = this.cart.map((item) => {
+        return {
+          name: item.name,
+          description: item.name,
+          images: [item.image],
+          amount: item.amount * 100,
+          currency: item.currency,
+          quantity:
+            item.quantity > 0 && item.quantity <= 10 ? item.quantity : 1,
+        };
+      });
+
+      const response = await StripeService.createCheckout({
+        items,
+        customerEmail: this.user.email,
+        clientReferenceId: this.user.id,
+      });
+
+      const { error } = await this.stripe.redirectToCheckout({
+        sessionId: response.data.sessionId,
+      });
+
+      if (error) {
+        console.error(error);
+      }
+    },
   },
   computed: {
     cart() {
@@ -134,6 +162,9 @@ export default {
     },
     cartTotal() {
       return this.$store.getters.cartTotal;
+    },
+    user() {
+      return this.$store.getters.user;
     },
   },
 };

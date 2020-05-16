@@ -19,9 +19,9 @@
               />
             </div>
             <div class="product__caption">
-              <span class="product__name">{{ edge.node.title }}</span>
+              <span class="product__name">{{ edge.node.name }}</span>
               <span class="product__brand">{{ edge.node.brand.name }}</span>
-              <span class="product__price">{{ edge.node.price }} €</span>
+              <span class="product__price">{{ edge.node.amount }} €</span>
             </div>
           </g-link>
         </div>
@@ -36,7 +36,7 @@ query {
     edges {
       node {
         id
-        title
+        name
         content
         slug
         date

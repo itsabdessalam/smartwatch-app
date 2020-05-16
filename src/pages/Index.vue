@@ -14,7 +14,7 @@
                   Discover our latest products
                 </h2>
                 <div class="slide__content__inner">
-                  <span class="slide__title"> {{ product.node.title }}</span>
+                  <span class="slide__title"> {{ product.node.name }}</span>
                   <span class="slide__subtitle">{{
                     product.node.brand.name
                   }}</span>
@@ -58,7 +58,7 @@
             >
               <g-link
                 :to="`/products/${product.node.slug}`"
-                :title="`View ${product.node.title}`"
+                :title="`View ${product.node.name}`"
               >
                 <div class="product__preview">
                   <g-image
@@ -70,11 +70,11 @@
                   />
                 </div>
                 <div class="product__caption">
-                  <span class="product__name"> {{ product.node.title }}</span>
+                  <span class="product__name"> {{ product.node.name }}</span>
                   <span class="product__brand">
                     {{ product.node.brand.name }}
                   </span>
-                  <span class="product__price">{{ product.node.price }} €</span>
+                  <span class="product__price">{{ product.node.amount }} €</span>
                 </div>
               </g-link>
             </div>
@@ -121,7 +121,7 @@ query {
     edges {
       node {
         id
-        title
+        name
         content
         slug
         date
@@ -129,7 +129,8 @@ query {
         image
         description
         sku
-        price
+        amount
+        currency
         color
         brand {
           name 
