@@ -1,52 +1,54 @@
 <template>
   <Layout>
-    <h1>
-      Cart
-    </h1>
-    <div class="cart">
-      <table v-if="cartCount > 0" class="cart__items table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="product in cart" :key="product.id">
-            <td>
-              <g-image
-                v-if="product.image"
-                :src="product.image"
-                :alt="product.name"
-              />
-            </td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.amount }} €</td>
-            <td>{{ product.amount * product.quantity }} €</td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-      <div v-else>
-        Your cart is empty
+    <ClientOnly>
+      <h1>
+        Cart
+      </h1>
+      <div class="cart">
+        <table v-if="cartCount > 0" class="cart__items table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Amount</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in cart" :key="product.id">
+              <td>
+                <g-image
+                  v-if="product.image"
+                  :src="product.image"
+                  :alt="product.name"
+                />
+              </td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.quantity }}</td>
+              <td>{{ product.amount }} €</td>
+              <td>{{ product.amount * product.quantity }} €</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div v-else>
+          Your cart is empty
+        </div>
+        <div class="cart__total">
+          <span>Cart Total: {{ cartTotal }} €</span>
+        </div>
+        <div v-if="cartCount > 0" class="cart__actions">
+          <button @click="clearCart" class="cart__actions__clear">
+            Clear cart
+          </button>
+          <button @click="handleCheckout" class="cart__actions__checkout">
+            Checkout
+          </button>
+        </div>
       </div>
-      <div class="cart__total">
-        <span>Cart Total: {{ cartTotal }} €</span>
-      </div>
-      <div v-if="cartCount > 0" class="cart__actions">
-        <button @click="clearCart" class="cart__actions__clear">
-          Clear cart
-        </button>
-        <button @click="handleCheckout" class="cart__actions__checkout">
-          Checkout
-        </button>
-      </div>
-    </div>
+    </ClientOnly>
   </Layout>
 </template>
 
@@ -62,32 +64,11 @@ export default {
       stripe: null,
     };
   },
-  mounted() {
-    this.includeStripe("js.stripe.com/v3/", () => {
-      this.configureStripe();
-    });
+  async mounted() {
+    const stripePromise = await loadStripe(STRIPE_PUBLIC_KEY);
+    this.stripe = await stripePromise;
   },
   methods: {
-    includeStripe(URL, callback) {
-      let documentTag = document,
-        tag = "script",
-        object = documentTag.createElement(tag),
-        scriptTag = documentTag.getElementsByTagName(tag)[0];
-      object.src = "//" + URL;
-      if (callback) {
-        object.addEventListener(
-          "load",
-          function(e) {
-            callback(null, e);
-          },
-          false
-        );
-      }
-      scriptTag.parentNode.insertBefore(object, scriptTag);
-    },
-    configureStripe() {
-      this.stripe = window.Stripe(STRIPE_PUBLIC_KEY);
-    },
     async clearCart() {
       await this.$store.commit("clearCart");
     },
