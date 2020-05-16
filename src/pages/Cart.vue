@@ -66,7 +66,7 @@ export default {
     this.stripe = await stripePromise;
   },
   beforeDestroy() {
-    this.clearStripe();
+    // this.clearStripe();
   },
   methods: {
     getStripeControllerFrameNode() {
