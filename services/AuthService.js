@@ -1,4 +1,4 @@
-const { API_URL_AUTH } = require("../config");
+const API_URL_AUTH = process.env.GRIDSOME_API_URL_AUTH;
 const axios = require("axios");
 
 module.exports = {

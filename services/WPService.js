@@ -1,4 +1,4 @@
-const { API_URL_WP } = require("../config");
+const API_URL_WP = process.env.GRIDSOME_API_URL_WP;
 const axios = require("axios");
 
 module.exports = {

@@ -1,6 +1,9 @@
 import AuthService from "../../../services/AuthService";
-import { AUTH_TOKEN, CURR_USER } from "../../../config";
 import { localStorage } from "../../../utils";
+
+const LOCAL_STORAGE_PREFIX = process.env.GRIDSOME_LOCAL_STORAGE_PREFIX;
+const AUTH_TOKEN = process.env.GRIDSOME_LOCAL_STORAGE_PREFIX + "auth_token";
+const CURR_USER = process.env.GRIDSOME_LOCAL_STORAGE_PREFIX + "curr_user";
 
 const state = {
   token: localStorage.getItem(AUTH_TOKEN) || "",

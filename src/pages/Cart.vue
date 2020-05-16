@@ -52,8 +52,9 @@
 
 <script>
 import { loadStripe } from "@stripe/stripe-js";
-import { STRIPE_PUBLIC_KEY } from "../../config";
 import StripeService from "../../services/StripeService";
+
+const STRIPE_PUBLIC_KEY = process.env.GRIDSOME_STRIPE_PUBLIC_KEY;
 
 export default {
   data() {
@@ -65,63 +66,7 @@ export default {
     const stripePromise = await loadStripe(STRIPE_PUBLIC_KEY);
     this.stripe = await stripePromise;
   },
-  beforeDestroy() {
-    // this.clearStripe();
-  },
   methods: {
-    getStripeControllerFrameNode() {
-      const frameId =
-        this.stripe && this.stripe._controller && this.stripe._controller._id;
-      if (!frameId) return;
-
-      return document.querySelector(`[name='${frameId}']`);
-    },
-
-    removeStripeControllerFrame() {
-      const frameNode = this.getStripeControllerFrameNode(this.stripe);
-
-      if (frameNode && frameNode.parentNode) {
-        frameNode.parentNode.removeChild(frameNode);
-      }
-    },
-    clearStripe() {
-      let id = window.setTimeout(() => {}, 0);
-      while (id--) {
-        window.clearTimeout(id);
-      }
-
-      this.stripe._controller._controllerFrame._removeAllListeners();
-      this.stripe._controller._controllerFrame._iframe.remove();
-
-      const stripeIframes = [
-        document.querySelectorAll("[name^=__privateStripeMetricsController]"),
-        document.querySelectorAll("[name^=__privateStripeController]"),
-      ];
-
-      stripeIframes.forEach((iframes) =>
-        iframes.forEach((iframe) => {
-          iframe.parentNode.removeChild(iframe);
-        })
-      );
-
-      this.removeStripeControllerFrame();
-    },
-    async redirectToCheckout(event) {
-      const { error } = await this.stripe.redirectToCheckout({
-        items: [
-          ...this.cart.map((item) => ({
-            quantity: item.quantity,
-            sku: item.sku,
-          })),
-        ],
-        customerEmail: "hello@abdessalam.dev",
-        successUrl: `http://localhost:8080/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
-        cancelUrl: `http://localhost:8080/cart?session_id={CHECKOUT_SESSION_ID}`,
-      });
-      if (error) {
-        console.warn("Error:", error);
-      }
-    },
     async clearCart() {
       await this.$store.commit("clearCart");
     },

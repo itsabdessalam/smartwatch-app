@@ -1,5 +1,4 @@
-const { STRIPE_SECRET_KEY, API_STRIPE_CHECKOUT } = require("../config");
-// const stripe = require("stripe")(STRIPE_SECRET_KEY);
+const API_STRIPE_CHECKOUT = process.env.GRIDSOME_API_STRIPE_CHECKOUT;
 const axios = require("axios");
 
 module.exports = {

@@ -1,5 +1,6 @@
-import { CART } from "../../../config";
 import { localStorage } from "../../../utils";
+
+const CART = process.env.GRIDSOME_LOCAL_STORAGE_PREFIX + "cart";
 
 const state = {
   cart: localStorage.getItem(CART)

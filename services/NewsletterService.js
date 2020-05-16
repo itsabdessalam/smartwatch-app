@@ -1,4 +1,4 @@
-const { API_URL_NEWSLETTER } = require("../config");
+const API_URL_NEWSLETTER = process.env.GRIDSOME_API_URL_NEWSLETTER;
 const axios = require("axios");
 
 module.exports = {
