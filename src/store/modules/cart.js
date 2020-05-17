@@ -65,6 +65,10 @@ const mutations = {
   removeOneFromCart: (state, payload) => {
     let itemIndex = state.cart.findIndex(item => item.id === payload.id);
 
+    if (!state.cart[itemIndex]) {
+      return;
+    }
+
     state.cart[itemIndex].quantity -= 1;
 
     if (state.cart[itemIndex].quantity < 1) {
