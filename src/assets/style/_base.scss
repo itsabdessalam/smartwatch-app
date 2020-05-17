@@ -2,20 +2,18 @@
   box-sizing: border-box;
 }
 
-html {
-  &,
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
-    line-height: 1.45;
-    letter-spacing: -0.2px;
-    background-color: $background;
-    color: $text;
-    text-align: left;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1.45;
+  letter-spacing: -0.2px;
+  background-color: $background;
+  color: $text;
+  text-align: left;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 a {
