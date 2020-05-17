@@ -7,7 +7,7 @@ html {
   body {
     margin: 0;
     padding: 0;
-    font-family: "Circular", "Helvetica", "Arial", sans-serif;
+    font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
     line-height: 1.45;
     letter-spacing: -0.2px;
     background-color: $background;
@@ -101,18 +101,18 @@ button[disabled] {
 
 @media (min-width: 1025px) {
   #device:after {
-    content: "desktop";
+    content: 'desktop';
   }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   #device:after {
-    content: "tablet";
+    content: 'tablet';
   }
 }
 
 @media (max-width: 767px) {
   #device:after {
-    content: "mobile";
+    content: 'mobile';
   }
 }

@@ -32,8 +32,8 @@
               Subscribe
             </button>
           </form>
-          <p v-if="hasError('email')" class="help error">
-            {{ hasError('email') }}
+          <p v-if="hasError('email') || subscribeError" class="help error">
+            {{ hasError('email') || subscribeError }}
           </p>
         </div>
       </div>
@@ -43,11 +43,13 @@
 
 <script>
 import NewsletterService from '../../../services/NewsletterService';
+import { isValidEmail } from '../../../utils/validator';
 
 export default {
   data() {
     return {
       errors: {},
+      subscribeError: '',
       fields: {
         email: '',
       },
@@ -55,7 +57,7 @@ export default {
   },
   methods: {
     checkEmail(email) {
-      if (!email.length) {
+      if (!isValidEmail(email)) {
         this.errors.email = 'Email is required and must be valid!';
       }
     },
@@ -69,16 +71,20 @@ export default {
     },
     resetError(field) {
       this.errors[field] = '';
+      this.subscribeError = '';
     },
     subscribe() {
-      NewsletterService.subscribe(this.fields)
-        .then(response => {
-          console.log('success', 'subscribe => response', response);
-          this.$router.push('/newsletter-success');
-        })
-        .catch(error => {
-          console.error('error', 'subscribe => error', error);
-        });
+      const isValidForm = this.checkForm(this.fields);
+
+      if (isValidForm) {
+        NewsletterService.subscribe(this.fields)
+          .then(() => {
+            this.$router.push('/newsletter-success');
+          })
+          .catch(error => {
+            this.subscribeError = error.response.data.error;
+          });
+      }
     },
   },
 };
@@ -139,6 +145,15 @@ export default {
         transition: all ease-out 0.2s;
         color: #ffffff;
         background-color: $primary;
+      }
+    }
+
+    p.help {
+      margin: 0;
+      font-size: 12px;
+
+      &.error {
+        color: $error;
       }
     }
   }
