@@ -58,13 +58,13 @@ export default {
         quantity: this.quantity,
         ...this.product,
       };
-      await this.$store.commit('addOneToCart', payload);
+      await this.$store.dispatch('addOneToCart', payload);
     },
     async removeOneFromCart() {
       const payload = {
         ...this.product,
       };
-      await this.$store.commit('removeOneFromCart', payload);
+      await this.$store.dispatch('removeOneFromCart', payload);
     },
   },
   components: {},

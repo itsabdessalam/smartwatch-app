@@ -40,8 +40,8 @@
           <span>Cart Total: {{ cartTotal }} €</span>
         </div>
         <div v-if="cartCount > 0" class="cart__actions">
-          <button @click="clearCart" class="cart__actions__clear">
-            Clear cart
+          <button @click="emptyCart" class="cart__actions__clear">
+            Empty cart
           </button>
           <button @click="handleCheckout" class="cart__actions__checkout">
             Checkout
@@ -69,8 +69,8 @@ export default {
     this.stripe = await stripePromise;
   },
   methods: {
-    async clearCart() {
-      await this.$store.commit('clearCart');
+    async emptyCart() {
+      await this.$store.dispatch('emptyCart');
     },
     async handleCheckout() {
       const items = this.cart.map(item => {

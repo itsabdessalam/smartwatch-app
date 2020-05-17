@@ -1,7 +1,9 @@
 <template>
   <Layout>
-    <h1>Register</h1>
-    <button @click="register">Click here!</button>
+    <ClientOnly>
+      <h1>Register</h1>
+      <button @click="register">Click here!</button>
+    </ClientOnly>
   </Layout>
 </template>
 

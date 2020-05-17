@@ -1,6 +1,8 @@
 <template>
   <Layout>
-    <h1>Account</h1>
+    <ClientOnly>
+      <h1>Account</h1>
+    </ClientOnly>
   </Layout>
 </template>
 

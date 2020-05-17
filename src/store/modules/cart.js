@@ -2,6 +2,9 @@ import { localStorage } from '../../../utils';
 
 const CART = process.env.GRIDSOME_LOCAL_STORAGE_PREFIX + 'cart';
 
+const updateCartInLocalStorage = () => {
+  localStorage.setItem(CART, JSON.stringify(state.cart));
+};
 const state = {
   cart: localStorage.getItem(CART)
     ? JSON.parse(localStorage.getItem(CART))
@@ -33,37 +36,53 @@ const getters = {
     );
   },
 };
-const actions = {};
+const actions = {
+  addToCart: ({ commit }, item) => {
+    commit('ADD_TO_CART', item);
+  },
+  removeFromCart: ({ commit }, sku) => {
+    commit('REMOVE_FROM_CART', sku);
+  },
+  addOneToCart: ({ commit }, item) => {
+    commit('ADD_ONE_TO_CART', item);
+  },
+  removeOneFromCart: ({ commit }, item) => {
+    commit('REMOVE_ONE_FROM_CART', item);
+  },
+  emptyCart: ({ commit }) => {
+    commit('EMPTY_CART');
+  },
+};
 
 const mutations = {
-  addToCart: (state, payload) => {
-    const itemExists = state.cart.find(item => item.sku === payload.sku);
+  ADD_TO_CART: (state, item) => {
+    const itemExists = state.cart.find(i => i.sku === item.sku);
 
     if (itemExists) {
-      itemExists.quantity += payload.quantity;
+      itemExists.quantity += item.quantity;
     } else {
-      state.cart.push(payload);
+      state.cart.push(item);
     }
 
-    localStorage.setItem(CART, JSON.stringify(state.cart));
+    updateCartInLocalStorage();
   },
-  removeFromCart: (state, sku) => {
-    state.cart = state.cart.filter(item => item.sku !== sku);
-    localStorage.setItem(CART, JSON.stringify(state.cart));
+  REMOVE_FROM_CART: (state, sku) => {
+    state.cart = state.cart.filter(i => i.sku !== sku);
+    updateCartInLocalStorage();
   },
-  addOneToCart: (state, payload) => {
-    let itemExists = state.cart.find(item => item.sku === payload.sku);
+  ADD_ONE_TO_CART: (state, item) => {
+    let itemExists = state.cart.find(i => i.sku === item.sku);
 
     if (itemExists) {
       itemExists.quantity += 1;
     } else {
-      state.cart.push(payload);
+      state.cart.push(item);
     }
 
-    localStorage.setItem(CART, JSON.stringify(state.cart));
+    updateCartInLocalStorage();
   },
-  removeOneFromCart: (state, payload) => {
-    let itemIndex = state.cart.findIndex(item => item.id === payload.id);
+  REMOVE_ONE_FROM_CART: (state, item) => {
+    let itemIndex = state.cart.findIndex(i => i.id === item.id);
 
     if (!state.cart[itemIndex]) {
       return;
@@ -75,11 +94,11 @@ const mutations = {
       state.cart.splice(itemIndex, 1);
     }
 
-    localStorage.setItem(CART, JSON.stringify(state.cart));
+    updateCartInLocalStorage();
   },
-  clearCart: state => {
+  EMPTY_CART: state => {
     state.cart = [];
-    localStorage.setItem(CART, JSON.stringify(state.cart));
+    updateCartInLocalStorage();
   },
 };
 
