@@ -33,6 +33,7 @@ const getters = {
     );
   },
 };
+const actions = {};
 
 const mutations = {
   addToCart: (state, payload) => {
@@ -80,6 +81,7 @@ const mutations = {
 
 export default {
   state,
-  mutations,
   getters,
+  actions,
+  mutations,
 };

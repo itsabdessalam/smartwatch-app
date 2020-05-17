@@ -35,7 +35,7 @@ const getters = {
 const actions = {
   login: ({ commit }, user) => {
     return new Promise((resolve, reject) => {
-      commit('AUTH_LOADING');
+      commit('SET_AUTH_LOADING');
       AuthService.login(user)
         .then(response => {
           const { data, error } = response.data;
@@ -45,21 +45,20 @@ const actions = {
           }
 
           setTimeout(() => {
-            commit('AUTH_SUCCESS', setUser(data));
+            commit('SET_AUTH_SUCCESS', setUser(data));
             resolve(data);
           }, 500);
         })
         .catch(error => {
-          commit('AUTH_ERROR', error);
-          localStorage.removeItem(AUTH_TOKEN);
-          localStorage.removeItem(CURR_USER);
+          commit('SET_AUTH_ERROR', error);
+          removeUser();
           reject(error);
         });
     });
   },
   register: ({ commit }, user) => {
     return new Promise((resolve, reject) => {
-      commit('AUTH_LOADING');
+      commit('SET_AUTH_LOADING');
       AuthService.register(user)
         .then(response => {
           const { data, error } = response.data;
@@ -69,21 +68,20 @@ const actions = {
           }
 
           setTimeout(() => {
-            commit('AUTH_SUCCESS', setUser(data));
+            commit('SET_AUTH_SUCCESS', setUser(data));
             resolve(data);
           }, 500);
         })
         .catch(error => {
-          commit('AUTH_ERROR', error);
-          localStorage.removeItem(AUTH_TOKEN);
-          localStorage.removeItem(CURR_USER);
+          commit('SET_AUTH_ERROR', error);
+          removeUser();
           reject(error);
         });
     });
   },
   logout: ({ commit }) => {
     return new Promise(resolve => {
-      commit('AUTH_LOGOUT');
+      commit('SET_AUTH_LOGOUT');
       removeUser();
       resolve();
     });
@@ -91,20 +89,20 @@ const actions = {
 };
 
 const mutations = {
-  AUTH_LOADING: state => {
+  SET_AUTH_LOADING: state => {
     state.status = 'loading';
   },
-  AUTH_SUCCESS: (state, response) => {
+  SET_AUTH_SUCCESS: (state, response) => {
     state.status = 'success';
     state.token = response.token;
     state.user = response.user;
     state.hasLoadedOnce = true;
   },
-  AUTH_ERROR: state => {
+  SET_AUTH_ERROR: state => {
     state.status = 'error';
     state.hasLoadedOnce = true;
   },
-  AUTH_LOGOUT: state => {
+  SET_AUTH_LOGOUT: state => {
     state.token = '';
   },
 };
