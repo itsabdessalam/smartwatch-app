@@ -54,7 +54,7 @@ const mutations = {
     let itemExists = state.cart.find(item => item.sku === payload.sku);
 
     if (itemExists) {
-      itemExists.quantity++;
+      itemExists.quantity += 1;
     } else {
       state.cart.push(payload);
     }
@@ -62,10 +62,13 @@ const mutations = {
     localStorage.setItem(CART, JSON.stringify(state.cart));
   },
   removeOneFromCart: (state, payload) => {
-    let index = state.cart.findIndex(item => item.id === payload.id);
-    state.cart[index].quantity
-      ? state.cart[index].quantity--
-      : state.cart.splice(index, 1);
+    let itemIndex = state.cart.findIndex(item => item.id === payload.id);
+
+    state.cart[itemIndex].quantity -= 1;
+
+    if (state.cart[itemIndex].quantity < 1) {
+      state.cart.splice(itemIndex, 1);
+    }
 
     localStorage.setItem(CART, JSON.stringify(state.cart));
   },
