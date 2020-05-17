@@ -47,7 +47,7 @@ query {
 <script>
 export default {
   metaInfo: {
-    title: "News",
+    title: 'News',
   },
 };
 </script>

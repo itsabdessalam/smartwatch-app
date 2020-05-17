@@ -1,6 +1,6 @@
-import { localStorage } from "../../../utils";
+import { localStorage } from '../../../utils';
 
-const CART = process.env.GRIDSOME_LOCAL_STORAGE_PREFIX + "cart";
+const CART = process.env.GRIDSOME_LOCAL_STORAGE_PREFIX + 'cart';
 
 const state = {
   cart: localStorage.getItem(CART)
@@ -9,8 +9,8 @@ const state = {
 };
 
 const getters = {
-  cart: (state) => state.cart,
-  cartCount: (state) => {
+  cart: state => state.cart,
+  cartCount: state => {
     if (!state.cart.length) {
       return 0;
     }
@@ -20,7 +20,7 @@ const getters = {
       1
     );
   },
-  cartTotal: (state) => {
+  cartTotal: state => {
     if (!state.cart.length) {
       return 0;
     }
@@ -28,7 +28,7 @@ const getters = {
     return (
       state.cart.reduce(
         (accumulator, next) => accumulator + next.quantity * next.amount,
-        0
+        0,
       ) * 1
     );
   },
@@ -36,7 +36,7 @@ const getters = {
 
 const mutations = {
   addToCart: (state, payload) => {
-    const itemExists = state.cart.find((item) => item.sku === payload.sku);
+    const itemExists = state.cart.find(item => item.sku === payload.sku);
 
     if (itemExists) {
       itemExists.quantity += payload.quantity;
@@ -47,11 +47,11 @@ const mutations = {
     localStorage.setItem(CART, JSON.stringify(state.cart));
   },
   removeFromCart: (state, sku) => {
-    state.cart = state.cart.filter((item) => item.sku !== sku);
+    state.cart = state.cart.filter(item => item.sku !== sku);
     localStorage.setItem(CART, JSON.stringify(state.cart));
   },
   addOneToCart: (state, payload) => {
-    let itemExists = state.cart.find((item) => item.sku === payload.sku);
+    let itemExists = state.cart.find(item => item.sku === payload.sku);
 
     if (itemExists) {
       itemExists.quantity++;
@@ -62,14 +62,14 @@ const mutations = {
     localStorage.setItem(CART, JSON.stringify(state.cart));
   },
   removeOneFromCart: (state, payload) => {
-    let index = state.cart.findIndex((item) => item.id === payload.id);
+    let index = state.cart.findIndex(item => item.id === payload.id);
     state.cart[index].quantity
       ? state.cart[index].quantity--
       : state.cart.splice(index, 1);
 
     localStorage.setItem(CART, JSON.stringify(state.cart));
   },
-  clearCart: (state) => {
+  clearCart: state => {
     state.cart = [];
     localStorage.setItem(CART, JSON.stringify(state.cart));
   },

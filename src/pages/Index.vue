@@ -74,7 +74,9 @@
                   <span class="product__brand">
                     {{ product.node.brand.name }}
                   </span>
-                  <span class="product__price">{{ product.node.amount }} €</span>
+                  <span class="product__price"
+                    >{{ product.node.amount }} €</span
+                  >
                 </div>
               </g-link>
             </div>
@@ -156,9 +158,9 @@ query {
 </page-query>
 
 <script>
-import Slider from "~/components/elements/Slider";
-import NewsletterForm from "~/components/elements/NewsletterForm";
-import { shuffle } from "../../utils/array";
+import Slider from '~/components/elements/Slider';
+import NewsletterForm from '~/components/elements/NewsletterForm';
+import { shuffle } from '../../utils/array';
 
 export default {
   data() {
@@ -180,7 +182,7 @@ export default {
     }
   },
   metaInfo: {
-    title: "Home",
+    title: 'Home',
   },
 };
 </script>

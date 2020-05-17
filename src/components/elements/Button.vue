@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  name: "Button",
+  name: 'Button',
   methods: {
     submit(event) {
-      this.$emit("click", event);
+      this.$emit('click', event);
     },
   },
 };

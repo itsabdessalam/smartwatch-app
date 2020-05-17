@@ -7,7 +7,7 @@
 <script>
 export default {
   metaInfo: {
-    title: "Checkout success!",
+    title: 'Checkout success!',
   },
 };
 </script>

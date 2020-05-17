@@ -7,7 +7,7 @@
 <script>
 export default {
   metaInfo: {
-    title: "Newsletter success!",
+    title: 'Newsletter success!',
   },
 };
 </script>

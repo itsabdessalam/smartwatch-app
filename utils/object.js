@@ -1,10 +1,10 @@
-const deepClone = (object) => {
+const deepClone = object => {
   const clone = Object.assign({}, object);
 
   Object.keys(clone).forEach(
-    (key) =>
+    key =>
       (clone[key] =
-        typeof object[key] === "object" ? deepClone(object[key]) : object[key])
+        typeof object[key] === 'object' ? deepClone(object[key]) : object[key]),
   );
 
   if (Array.isArray(object) && object.length) {

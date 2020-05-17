@@ -1,5 +1,5 @@
-import auth from "../store/modules/auth";
-import cart from "../store/modules/cart";
+import auth from '../store/modules/auth';
+import cart from '../store/modules/cart';
 
 export default {
   modules: {

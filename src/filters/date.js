@@ -1,1 +1,1 @@
-export { toLocaleDate } from "../../utils/date";
+export { toLocaleDate } from '../../utils/date';

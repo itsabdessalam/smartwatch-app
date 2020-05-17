@@ -1,8 +1,8 @@
-const normalizeFields = (fields) => {
+const normalizeFields = fields => {
   const type = fields.post_type;
   let target;
   switch (type) {
-    case "post":
+    case 'post':
       return {
         id: fields.ID || fields.id,
         title: fields.post_title,
@@ -13,7 +13,7 @@ const normalizeFields = (fields) => {
         status: fields.post_status,
         image: fields.custom_fields.image,
       };
-    case "product":
+    case 'product':
       return {
         id: fields.ID || fields.id,
         name: fields.post_title,

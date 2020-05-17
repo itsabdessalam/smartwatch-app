@@ -58,13 +58,13 @@ export default {
         quantity: this.quantity,
         ...this.product,
       };
-      await this.$store.commit("addOneToCart", payload);
+      await this.$store.commit('addOneToCart', payload);
     },
     async removeOneFromCart() {
       const payload = {
         ...this.product,
       };
-      await this.$store.commit("removeOneFromCart", payload);
+      await this.$store.commit('removeOneFromCart', payload);
     },
   },
   components: {},
@@ -73,7 +73,7 @@ export default {
       title: this.$page.product.name,
       meta: [
         {
-          name: "description",
+          name: 'description',
           content: this.$page.product.description,
         },
       ],

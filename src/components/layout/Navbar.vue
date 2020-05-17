@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import Logo from "~/components/elements/Logo";
+import Logo from '~/components/elements/Logo';
 
 export default {
   components: { Logo },

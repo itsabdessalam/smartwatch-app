@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import { loadStripe } from "@stripe/stripe-js";
-import StripeService from "../../services/StripeService";
+import { loadStripe } from '@stripe/stripe-js';
+import StripeService from '../../services/StripeService';
 
 const STRIPE_PUBLIC_KEY = process.env.GRIDSOME_STRIPE_PUBLIC_KEY;
 
@@ -70,10 +70,10 @@ export default {
   },
   methods: {
     async clearCart() {
-      await this.$store.commit("clearCart");
+      await this.$store.commit('clearCart');
     },
     async handleCheckout() {
-      const items = this.cart.map((item) => {
+      const items = this.cart.map(item => {
         return {
           name: item.name,
           description: item.name,

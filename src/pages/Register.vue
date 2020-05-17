@@ -8,33 +8,33 @@
 <script>
 export default {
   metaInfo: {
-    title: "Register",
+    title: 'Register',
   },
   data() {
     return {
       errors: {},
-      authStatus: "",
-      authStatusMessage: "",
+      authStatus: '',
+      authStatusMessage: '',
       fields: {
-        name: "",
-        email: "",
-        password: "",
+        name: '',
+        email: '',
+        password: '',
       },
     };
   },
   methods: {
     register() {
       const data = {
-        name: "toto",
-        email: "test@test.com",
-        password: "12345678",
+        name: 'toto',
+        email: 'test@test.com',
+        password: '12345678',
       };
       this.$store
-        .dispatch("register", data)
+        .dispatch('register', data)
         .then(() => {
-          this.$router.push("/account");
+          this.$router.push('/account');
         })
-        .catch((error) => {
+        .catch(error => {
           this.authStatus = this.$store.getters.authStatus;
           this.authStatusMessage = error.message;
         });

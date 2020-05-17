@@ -33,7 +33,7 @@
             </button>
           </form>
           <p v-if="hasError('email')" class="help error">
-            {{ hasError("email") }}
+            {{ hasError('email') }}
           </p>
         </div>
       </div>
@@ -42,21 +42,21 @@
 </template>
 
 <script>
-import NewsletterService from "../../../services/NewsletterService";
+import NewsletterService from '../../../services/NewsletterService';
 
 export default {
   data() {
     return {
       errors: {},
       fields: {
-        email: "",
+        email: '',
       },
     };
   },
   methods: {
     checkEmail(email) {
       if (!email.length) {
-        this.errors.email = "Email is required and must be valid!";
+        this.errors.email = 'Email is required and must be valid!';
       }
     },
     checkForm(data) {
@@ -68,18 +68,16 @@ export default {
       return this.errors[field];
     },
     resetError(field) {
-      this.errors[field] = "";
+      this.errors[field] = '';
     },
     subscribe() {
-      const isValidForm = this.checkForm(this.fields);
-
       NewsletterService.subscribe(this.fields)
-        .then((response) => {
-          console.log("success", "subscribe => response", response);
-          this.$router.push("/newsletter-success");
+        .then(response => {
+          console.log('success', 'subscribe => response', response);
+          this.$router.push('/newsletter-success');
         })
-        .catch((error) => {
-          console.error("error", "subscribe => error", error);
+        .catch(error => {
+          console.error('error', 'subscribe => error', error);
         });
     },
   },

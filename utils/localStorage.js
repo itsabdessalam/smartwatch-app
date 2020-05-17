@@ -5,14 +5,14 @@ const setItem = (key, value) => {
 
   window.localStorage.setItem(key, value);
 };
-const getItem = (key) => {
+const getItem = key => {
   if (!process.isClient || !key) {
     return;
   }
 
   return window.localStorage.getItem(key);
 };
-const removeItem = (key) => {
+const removeItem = key => {
   if (!process.isClient || !key) {
     return;
   }

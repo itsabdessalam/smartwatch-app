@@ -11,24 +11,24 @@
 </template>
 
 <script>
-import Header from "~/components/layout/Header";
-import Footer from "~/components/layout/Footer";
-import BackToTop from "~/components/elements/BackToTop";
+import Header from '~/components/layout/Header';
+import Footer from '~/components/layout/Footer';
+import BackToTop from '~/components/elements/BackToTop';
 
 export default {
   data() {
     return {
       deviceWatcher: null,
-      device: "",
+      device: '',
     };
   },
   mounted() {
-    this.deviceWatcher = document.getElementById("device");
+    this.deviceWatcher = document.getElementById('device');
     this.setDevice();
-    window.addEventListener("resize", this.setDevice);
+    window.addEventListener('resize', this.setDevice);
   },
   beforeDestroy() {
-    window.removeEventListener("resize", this.setDevice);
+    window.removeEventListener('resize', this.setDevice);
   },
   components: {
     Header,
@@ -36,11 +36,11 @@ export default {
     BackToTop,
   },
   methods: {
-    setDevice(element, event) {
+    setDevice() {
       const device = getComputedStyle(
         this.deviceWatcher,
-        ":after"
-      ).content.replace(/"/g, "");
+        ':after',
+      ).content.replace(/"/g, '');
       if (this.device !== device) {
         this.device = device;
       }

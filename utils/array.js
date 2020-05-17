@@ -1,6 +1,6 @@
-const { deepClone } = require("../utils/object");
+const { deepClone } = require('../utils/object');
 
-const shuffle = (array) => {
+const shuffle = array => {
   const ref = deepClone(array);
 
   for (let i = ref.length - 1; i > 0; i--) {

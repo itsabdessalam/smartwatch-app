@@ -60,41 +60,41 @@ export default {
   },
   methods: {
     init() {
-      this.slides = [].slice.call(this.$el.querySelectorAll(".slide"));
-      this.slides[0].classList.add("active");
+      this.slides = [].slice.call(this.$el.querySelectorAll('.slide'));
+      this.slides[0].classList.add('active');
 
       this.intervalId = setInterval(() => {
-        const active = this.$el.querySelector(".active");
+        const active = this.$el.querySelector('.active');
 
-        active.classList.remove("active");
+        active.classList.remove('active');
 
         if (active.nextSibling) {
-          active.nextSibling.classList.add("active");
+          active.nextSibling.classList.add('active');
         } else {
-          this.slides[0].classList.add("active");
+          this.slides[0].classList.add('active');
         }
       }, 6000);
     },
     next() {
-      const active = this.$el.querySelector(".active");
+      const active = this.$el.querySelector('.active');
 
-      active.classList.remove("active");
+      active.classList.remove('active');
 
       if (active.nextSibling) {
-        active.nextSibling.classList.add("active");
+        active.nextSibling.classList.add('active');
       } else {
-        this.slides[0].classList.add("active");
+        this.slides[0].classList.add('active');
       }
     },
     previous() {
-      const active = this.$el.querySelector(".active");
+      const active = this.$el.querySelector('.active');
 
-      active.classList.remove("active");
+      active.classList.remove('active');
 
       if (active.previousSibling) {
-        active.previousSibling.classList.add("active");
+        active.previousSibling.classList.add('active');
       } else {
-        this.slides[this.slides.length - 1].classList.add("active");
+        this.slides[this.slides.length - 1].classList.add('active');
       }
     },
     clear() {

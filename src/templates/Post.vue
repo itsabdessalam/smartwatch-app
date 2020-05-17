@@ -30,7 +30,7 @@ export default {
       title: this.$page.post.title,
       meta: [
         {
-          name: "description",
+          name: 'description',
           content: this.$page.post.description,
         },
       ],

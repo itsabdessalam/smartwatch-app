@@ -8,32 +8,32 @@
 <script>
 export default {
   metaInfo: {
-    title: "Login",
+    title: 'Login',
   },
   data() {
     return {
       errors: {},
-      authStatus: "",
-      authStatusMessage: "",
+      authStatus: '',
+      authStatusMessage: '',
       fields: {
-        email: "",
-        password: "",
+        email: '',
+        password: '',
       },
     };
   },
   methods: {
     login() {
       const data = {
-        email: "test@test.com",
-        password: "12345678",
+        email: 'test@test.com',
+        password: '12345678',
       };
 
       this.$store
-        .dispatch("login", data)
+        .dispatch('login', data)
         .then(() => {
-          this.$router.push("/account");
+          this.$router.push('/account');
         })
-        .catch((error) => {
+        .catch(error => {
           this.authStatus = this.$store.getters.authStatus;
           this.authStatusMessage = error.message;
         });

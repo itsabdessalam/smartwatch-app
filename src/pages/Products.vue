@@ -60,7 +60,7 @@ query {
 export default {
   components: {},
   metaInfo: {
-    title: "Products",
+    title: 'Products',
   },
 };
 </script>
