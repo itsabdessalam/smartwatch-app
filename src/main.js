@@ -21,26 +21,28 @@ export default function(Vue, { appOptions, router, head, isClient }) {
 
   appOptions.store = new Vuex.Store(store);
 
-  router.beforeEach((to, from, next) => {
-    // access only when authenticated
-    // else redirect to login
-    if (
-      !appOptions.store.getters.isAuthenticated &&
-      routes.withAuth.some(route => startsWith(to.fullPath, route))
-    ) {
-      next('/login');
-    } else {
-      next();
-    }
-
-    // if already authenticated
-    // redirect  specified routes to dashboard
-    if (
-      routes.redirectToAccount.some(route => startsWith(to.fullPath, route))
-    ) {
-      if (appOptions.store.getters.isAuthenticated) {
-        next('/account');
+  if (process.isClient) {
+    router.beforeEach((to, from, next) => {
+      // access only when authenticated
+      // else redirect to login
+      if (
+        !appOptions.store.getters.isAuthenticated &&
+        routes.withAuth.some(route => startsWith(to.fullPath, route))
+      ) {
+        next('/login');
+      } else {
+        next();
       }
-    }
-  });
+
+      // if already authenticated
+      // redirect  specified routes to dashboard
+      if (
+        routes.redirectToAccount.some(route => startsWith(to.fullPath, route))
+      ) {
+        if (appOptions.store.getters.isAuthenticated) {
+          next('/account');
+        }
+      }
+    });
+  }
 }
