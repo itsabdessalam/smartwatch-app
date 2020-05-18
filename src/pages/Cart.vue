@@ -4,6 +4,11 @@
       <h1>
         Cart
       </h1>
+      <Alert
+        v-show="cartCount > 0 && !isAuthenticated"
+        type="warning"
+        :message="'You must be logged in to procced to checkout'"
+      />
       <div class="cart">
         <table v-if="cartCount > 0" class="cart__items table">
           <thead>
@@ -40,12 +45,16 @@
           <span>Cart Total: {{ cartTotal }} €</span>
         </div>
         <div v-if="cartCount > 0" class="cart__actions">
-          <button @click="emptyCart" class="cart__actions__clear">
+          <Button @click="emptyCart" class="cart__actions__clear">
             Empty cart
-          </button>
-          <button @click="handleCheckout" class="cart__actions__checkout">
+          </Button>
+          <Button
+            @click="handleCheckout"
+            class="cart__actions__checkout"
+            :disabled="!isAuthenticated"
+          >
             Checkout
-          </button>
+          </Button>
         </div>
       </div>
     </ClientOnly>
@@ -58,11 +67,21 @@ import StripeService from '../../services/StripeService';
 
 const STRIPE_PUBLIC_KEY = process.env.GRIDSOME_STRIPE_PUBLIC_KEY;
 
+import Button from '~/components/elements/Button';
+import Alert from '~/components/elements/Alert';
+
 export default {
+  metaInfo: {
+    title: 'Cart',
+  },
   data() {
     return {
       stripe: null,
     };
+  },
+  components: {
+    Button,
+    Alert,
   },
   async mounted() {
     const stripePromise = await loadStripe(STRIPE_PUBLIC_KEY);
@@ -113,6 +132,9 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
   },
 };
 </script>
@@ -133,26 +155,10 @@ export default {
 
   .cart__actions {
     text-align: right;
-    margin-top: 12px;
+    margin-top: 24px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
-    .cart__actions__checkout,
-    .cart__actions__clear {
-      margin-top: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all ease-out 0.2s;
-      background-color: transparent;
-      font-size: 14px;
-      min-width: 100px;
-      padding: 12px 24px;
-      border: none;
-      cursor: pointer;
-      transition: all ease-out 0.2s;
-    }
 
     .cart__actions__checkout {
       color: #ffffff;

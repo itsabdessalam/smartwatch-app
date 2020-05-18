@@ -11,30 +11,42 @@
           </p>
         </div>
         <div class="newsletter__content__item--left col-7">
-          <form class="newsletter__form" method="POST" novalidate="true">
-            <label for="email">Email</label>
-            <input
-              class="input"
-              :class="{ 'has-error': hasError('email') }"
-              type="email"
-              name="email"
-              autocomplete="email"
-              placeholder="Your email address"
-              required
-              v-model="fields.email"
-              @keydown="resetError('email')"
-            />
-            <button
-              type="submit"
-              class="button-primary submit"
-              @click.prevent="subscribe"
-            >
-              Subscribe
-            </button>
-          </form>
-          <p v-if="hasError('email') || subscribeError" class="help error">
-            {{ hasError('email') || subscribeError }}
-          </p>
+          <Form class="newsletter__form form--inline">
+            <template #body>
+              <div class="field" :class="{ 'field--error': hasError('email') }">
+                <label for="email">Email</label>
+                <input
+                  class="input"
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  placeholder="Your email address"
+                  required
+                  v-model="fields.email"
+                  @keydown="resetError('email')"
+                />
+                <p
+                  v-if="hasError('email') || subscribeError"
+                  class="help error"
+                >
+                  {{ hasError('email') || subscribeError }}
+                </p>
+              </div>
+            </template>
+            <template #footer>
+              <div>
+                <Button
+                  type="submit"
+                  class="button--primary submit"
+                  :disabled="isLoading"
+                  @click.prevent="subscribe"
+                >
+                  <span v-if="!isLoading">Subscribe</span>
+                  <Loader v-else :color="'#ffffff'" />
+                </Button>
+              </div>
+            </template>
+          </Form>
         </div>
       </div>
     </div>
@@ -44,16 +56,28 @@
 <script>
 import NewsletterService from '../../../services/NewsletterService';
 import { isValidEmail } from '../../../utils/validator';
+import { size } from '../../../utils/common';
+
+import Button from '~/components/elements/Button';
+import Form from '~/components/elements/Form';
+import Loader from '~/components/elements/Loader';
 
 export default {
+  name: 'NewsletterForm',
   data() {
     return {
+      isLoading: false,
       errors: {},
       subscribeError: '',
       fields: {
         email: '',
       },
     };
+  },
+  components: {
+    Button,
+    Form,
+    Loader,
   },
   methods: {
     checkEmail(email) {
@@ -64,7 +88,7 @@ export default {
     checkForm(data) {
       this.errors = {};
       this.checkEmail(data.email);
-      return Object.keys(this.errors).length === 0;
+      return size(this.errors) === 0;
     },
     hasError(field) {
       return this.errors[field];
@@ -73,16 +97,23 @@ export default {
       this.errors[field] = '';
       this.subscribeError = '';
     },
+    handleError(error) {
+      this.subscribeError = error.response.data.error;
+    },
     subscribe() {
       const isValidForm = this.checkForm(this.fields);
 
       if (isValidForm) {
+        this.isLoading = true;
+
         NewsletterService.subscribe(this.fields)
           .then(() => {
+            this.isLoading = false;
             this.$router.push('/newsletter-success');
           })
           .catch(error => {
-            this.subscribeError = error.response.data.error;
+            this.isLoading = false;
+            this.handleError(error);
           });
       }
     },
@@ -128,32 +159,39 @@ export default {
       }
       input {
         width: 100%;
-        padding: 12px 16px;
+        padding: 16px 24px;
         font-size: 14px;
-      }
-      button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all ease-out 0.2s;
-        background-color: transparent;
-        font-size: 14px;
-        min-width: 100px;
-        padding: 12px 24px;
-        border: none;
-        cursor: pointer;
-        transition: all ease-out 0.2s;
-        color: #ffffff;
-        background-color: $primary;
       }
     }
 
     p.help {
-      margin: 0;
-      font-size: 12px;
-
       &.error {
         color: $error;
+      }
+    }
+
+    .form--inline {
+      .form__inner {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .field {
+          p.help {
+            margin: 0;
+            font-size: 12px;
+            bottom: unset;
+            top: -18px;
+          }
+        }
+      }
+
+      .form__body {
+        width: 100%;
+      }
+      .form__footer {
+        margin: 0;
       }
     }
   }

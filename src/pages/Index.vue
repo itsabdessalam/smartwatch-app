@@ -63,7 +63,7 @@
                 <div class="product__preview">
                   <g-image
                     alt="Product preview"
-                    width="270"
+                    width="290"
                     height="280"
                     v-if="product.node.image"
                     :src="product.node.image"
@@ -229,7 +229,8 @@ export default {
         background-color: transparent;
         font-size: 14px;
         min-width: 100px;
-        padding: 12px 24px;
+        padding: 16px 24px;
+        min-width: 128px;
         border: none;
         cursor: pointer;
         transition: all ease-out 0.2s;
@@ -275,7 +276,7 @@ export default {
         flex-direction: column;
         width: 100%;
         background-color: #ffffff;
-        padding: 20px;
+        padding: 16px;
         overflow: hidden;
       }
 
@@ -322,7 +323,7 @@ export default {
         flex-direction: column;
         width: 100%;
         background-color: #ffffff;
-        padding: 20px;
+        padding: 16px;
         overflow: hidden;
       }
 

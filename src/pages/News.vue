@@ -69,7 +69,7 @@ export default {
         flex-direction: column;
         width: 100%;
         background-color: #ffffff;
-        padding: 20px;
+        padding: 16px;
         overflow: hidden;
       }
 

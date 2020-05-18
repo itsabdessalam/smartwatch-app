@@ -25,7 +25,8 @@ export default {
   font-size: 14px;
   font-weight: 500;
   min-width: 120px;
-  padding: 12px 24px;
+  padding: 16px 24px;
+  min-width: 128px;
   border: none;
   cursor: pointer;
   transition: all ease-out 0.2s;
@@ -42,8 +43,7 @@ export default {
   &:disabled,
   &[disabled] {
     cursor: not-allowed;
-    opacity: 0.8;
-    background-color: $primary !important;
+    opacity: 0.6;
   }
 }
 </style>

@@ -6,7 +6,7 @@
           <div class="product__preview col-7">
             <g-image
               alt="Product preview"
-              width="270"
+              width="290"
               height="280"
               v-if="$page.product.image"
               :src="$page.product.image"
@@ -20,18 +20,18 @@
             <p class="product__price">{{ $page.product.amount }} €</p>
 
             <div class="product__actions">
-              <button
+              <Button
                 class="product__actions__remove"
                 @click.prevent="removeOneFromCart"
               >
                 Remove
-              </button>
-              <button
+              </Button>
+              <Button
                 class="product__actions__add"
                 @click.prevent="addOneToCart"
               >
                 Add
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import Button from '~/components/elements/Button';
+
 export default {
   data() {
     return {
@@ -48,10 +50,12 @@ export default {
       product: {},
     };
   },
+  components: {
+    Button,
+  },
   created() {
     this.product = this.$page.product;
   },
-  mounted() {},
   methods: {
     async addOneToCart() {
       const payload = {
@@ -67,7 +71,6 @@ export default {
       await this.$store.dispatch('removeOneFromCart', payload);
     },
   },
-  components: {},
   metaInfo() {
     return {
       title: this.$page.product.name,
@@ -145,22 +148,6 @@ query Product ($id: ID!) {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-
-      .product__actions__add,
-      .product__actions__remove {
-        margin-top: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all ease-out 0.2s;
-        background-color: transparent;
-        font-size: 14px;
-        min-width: 100px;
-        padding: 12px 24px;
-        border: none;
-        cursor: pointer;
-        transition: all ease-out 0.2s;
-      }
 
       .product__actions__add {
         color: #ffffff;

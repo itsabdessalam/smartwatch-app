@@ -12,7 +12,7 @@
             <div class="product__preview">
               <g-image
                 alt="Product preview"
-                width="270"
+                width="290"
                 height="280"
                 v-if="edge.node.image"
                 :src="edge.node.image"
@@ -58,7 +58,6 @@ query {
 
 <script>
 export default {
-  components: {},
   metaInfo: {
     title: 'Products',
   },
@@ -82,7 +81,7 @@ export default {
         flex-direction: column;
         width: 100%;
         background-color: #ffffff;
-        padding: 20px;
+        padding: 16px;
         overflow: hidden;
       }
 

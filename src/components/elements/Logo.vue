@@ -4,6 +4,11 @@
   </g-link>
 </template>
 
+<script>
+export default {
+  name: 'Logo',
+};
+</script>
 <style lang="scss">
 .logo {
   display: block;

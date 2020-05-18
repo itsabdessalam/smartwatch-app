@@ -23,6 +23,7 @@
 
 <script>
 export default {
+  name: 'BackToTop',
   data() {
     return {
       visible: false,

@@ -1,4 +1,4 @@
-[data-device="mobile"] {
+[data-device='mobile'] {
   &.layout {
     .content {
       padding: 0;
@@ -92,16 +92,48 @@
       }
     }
   }
+
+  .newsletter {
+    padding: 16px;
+
+    .newsletter__content__item--right,
+    .newsletter__content__item--left {
+      padding: 0;
+    }
+
+    .newsletter__content__item--left {
+      margin-top: 24px;
+
+      .form--inline {
+        .form__inner {
+          flex-direction: column;
+        }
+
+        .form__footer {
+          width: 100%;
+
+          > div {
+            width: 100%;
+
+            .button {
+              width: 100%;
+              margin-top: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-[data-device="desktop"] {
+[data-device='desktop'] {
   .container {
     max-width: 1190px;
   }
 }
 
-[data-device="tablet"],
-[data-device="desktop"] {
+[data-device='tablet'],
+[data-device='desktop'] {
   .col-md {
     flex-grow: 1;
     max-width: 100%;
