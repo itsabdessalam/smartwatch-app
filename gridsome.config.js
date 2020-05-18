@@ -36,6 +36,7 @@ const purgeConfig = {
     /data-device/,
     />>>/,
     /::v-deep/,
+    /alert-.*/,
   ],
   defaultExtractor: content => {
     const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
