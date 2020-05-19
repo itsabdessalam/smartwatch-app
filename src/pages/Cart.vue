@@ -152,6 +152,7 @@ export default {
           currency: item.currency,
           quantity:
             item.quantity > 0 && item.quantity <= 10 ? item.quantity : 1,
+          sku: item.sku,
         };
       });
 
