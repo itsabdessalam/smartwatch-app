@@ -8,7 +8,7 @@ const toLocaleDate = (date, locale = 'en-EN') => {
     day: 'numeric',
   };
 
-  return localeDate.toLocaleDateString('en-EN', options);
+  return localeDate.toLocaleDateString(locale, options);
 };
 
 module.exports = {

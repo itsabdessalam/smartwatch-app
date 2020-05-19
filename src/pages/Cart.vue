@@ -15,14 +15,14 @@
             <tr>
               <th></th>
               <th>Product</th>
-              <th>Quantity</th>
               <th>Amount</th>
+              <th>Quantity</th>
               <th>Total</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="product in cart" :key="product.id">
+            <tr v-for="product in cart" :key="product.id" class="cart__item">
               <td>
                 <g-image
                   v-if="product.image"
@@ -31,30 +31,67 @@
                 />
               </td>
               <td>{{ product.name }}</td>
-              <td>{{ product.quantity }}</td>
               <td>{{ product.amount }} €</td>
-              <td>{{ product.amount * product.quantity }} €</td>
-              <td></td>
+              <td>
+                <div class="cart__item__actions">
+                  <Button
+                    @click="removeOneFromCart(product.sku)"
+                    class="cart__item__actions__remove"
+                  >
+                    -
+                  </Button>
+                  <span class="cart__item__quantity">
+                    {{ product.quantity }}
+                  </span>
+                  <Button
+                    @click="addOneToCart(product.sku)"
+                    class="cart__item__actions__add"
+                  >
+                    +
+                  </Button>
+                </div>
+              </td>
+              <td>
+                {{ parseFloat(product.amount * product.quantity).toFixed(2) }}
+                €
+              </td>
+
+              <td>
+                <Button
+                  @click.prevent="removeFromCart(product.sku)"
+                  class="cart__item__remove"
+                >
+                  <svg viewBox="0 0 22.6 22.6">
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M22.6 1.4L21.2 0l-9.9 9.9L1.4 0 0 1.4l9.9 9.9L0 21.2l1.4 1.4 9.9-9.9 9.9 9.9 1.4-1.4-9.9-9.9z"
+                    ></path>
+                  </svg>
+                </Button>
+              </td>
             </tr>
           </tbody>
         </table>
-        <div v-else>
+        <div v-else class="cart__status">
           Your cart is empty
         </div>
-        <div class="cart__total">
-          <span>Cart Total: {{ cartTotal }} €</span>
-        </div>
-        <div v-if="cartCount > 0" class="cart__actions">
-          <Button @click="emptyCart" class="cart__actions__clear">
-            Empty cart
-          </Button>
-          <Button
-            @click="handleCheckout"
-            class="cart__actions__checkout"
-            :disabled="!isAuthenticated"
-          >
-            Checkout
-          </Button>
+        <div v-if="cartCount > 0">
+          <div class="cart__total">
+            <span>Cart Total: {{ cartTotal }} €</span>
+          </div>
+          <div class="cart__actions">
+            <Button @click="emptyCart" class="cart__actions__clear">
+              Empty cart
+            </Button>
+            <Button
+              @click="handleCheckout"
+              class="cart__actions__checkout"
+              :disabled="!isAuthenticated"
+            >
+              Checkout
+            </Button>
+          </div>
         </div>
       </div>
     </ClientOnly>
@@ -88,6 +125,20 @@ export default {
     this.stripe = await stripePromise;
   },
   methods: {
+    async addOneToCart(sku) {
+      const item = this.cart.find(i => i.sku === sku);
+      const payload = {
+        quantity: 1,
+        ...item,
+      };
+      await this.$store.dispatch('addOneToCart', payload);
+    },
+    async removeOneFromCart(sku) {
+      await this.$store.dispatch('removeOneFromCart', sku);
+    },
+    async removeFromCart(sku) {
+      await this.$store.dispatch('removeFromCart', sku);
+    },
     async emptyCart() {
       await this.$store.dispatch('emptyCart');
     },
@@ -97,7 +148,7 @@ export default {
           name: item.name,
           description: item.name,
           images: [item.image],
-          amount: item.amount * 100,
+          amount: parseFloat(item.amount).toFixed(2) * 100,
           currency: item.currency,
           quantity:
             item.quantity > 0 && item.quantity <= 10 ? item.quantity : 1,
@@ -148,6 +199,7 @@ export default {
       object-fit: contain;
     }
   }
+
   .cart__total {
     text-align: right;
     margin-top: 32px;
@@ -168,6 +220,52 @@ export default {
     .cart__actions__clear {
       background-color: #ffffff;
       margin-right: 12px;
+    }
+  }
+
+  .cart__status {
+    background-color: #ffffff;
+    padding: 48px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart__item {
+    .cart__item__actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      max-width: 128px;
+
+      .cart__item__actions__remove,
+      .cart__item__actions__add {
+        display: block;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        max-width: 24px !important;
+        min-width: 24px !important;
+        color: #ffffff;
+        background-color: $primary;
+      }
+    }
+    .cart__item__quantity {
+      margin: 0 12px;
+    }
+
+    .cart__item__remove {
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      max-width: 24px !important;
+      min-width: 24px !important;
+      margin: 0 auto;
+
+      svg {
+        fill: currentColor;
+        width: 16px;
+      }
     }
   }
 }

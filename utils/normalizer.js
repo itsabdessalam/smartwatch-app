@@ -1,6 +1,5 @@
 const normalizeFields = fields => {
   const type = fields.post_type;
-  let target;
   switch (type) {
     case 'post':
       return {
@@ -25,7 +24,7 @@ const normalizeFields = fields => {
         image: fields.custom_fields.image,
         description: fields.custom_fields.description,
         sku: fields.custom_fields.sku,
-        amount: fields.custom_fields.amount,
+        amount: parseFloat(fields.custom_fields.amount).toFixed(2),
         currency: fields.custom_fields.currency,
         color: fields.custom_fields.color,
         brand: {

@@ -65,10 +65,8 @@ export default {
       await this.$store.dispatch('addOneToCart', payload);
     },
     async removeOneFromCart() {
-      const payload = {
-        ...this.product,
-      };
-      await this.$store.dispatch('removeOneFromCart', payload);
+      const { sku } = this.product;
+      await this.$store.dispatch('removeOneFromCart', sku);
     },
   },
   metaInfo() {
@@ -120,6 +118,7 @@ query Product ($id: ID!) {
 
     img {
       max-width: 290px;
+      height: 80%;
       width: auto;
       margin: auto;
       display: block;

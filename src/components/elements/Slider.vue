@@ -6,37 +6,23 @@
     <div class="slider__controls">
       <div class="slider__controls__prev">
         <a @click="previous" title="Go to previous slide">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
+          <svg viewBox="0 0 16.1 11.3">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M16.1 5.7l-1.5-1.5L10.4 0 9 1.4l3.2 3.2H0v2h12.3L9 9.9l1.4 1.4 4.2-4.2z"
+            ></path>
           </svg>
         </a>
       </div>
       <div class="slider__controls__next">
         <a @click="next" title="Go to next slide">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12 5 19 12 12 19" />
+          <svg viewBox="0 0 16.1 11.3">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M16.1 5.7l-1.5-1.5L10.4 0 9 1.4l3.2 3.2H0v2h12.3L9 9.9l1.4 1.4 4.2-4.2z"
+            ></path>
           </svg>
         </a>
       </div>
@@ -147,6 +133,19 @@ export default {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+
+        svg {
+          fill: currentColor;
+          width: 18px;
+        }
+      }
+    }
+
+    .slider__controls__prev {
+      > a {
+        svg {
+          transform: rotate(180deg);
+        }
       }
     }
   }

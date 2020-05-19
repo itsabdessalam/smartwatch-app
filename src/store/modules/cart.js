@@ -28,12 +28,12 @@ const getters = {
       return 0;
     }
 
-    return (
-      state.cart.reduce(
-        (accumulator, next) => accumulator + next.quantity * next.amount,
-        0,
-      ) * 1
+    const total = state.cart.reduce(
+      (accumulator, next) => accumulator + next.quantity * next.amount,
+      0,
     );
+
+    return parseFloat(total).toFixed(2);
   },
 };
 const actions = {
@@ -46,8 +46,8 @@ const actions = {
   addOneToCart: ({ commit }, item) => {
     commit('ADD_ONE_TO_CART', item);
   },
-  removeOneFromCart: ({ commit }, item) => {
-    commit('REMOVE_ONE_FROM_CART', item);
+  removeOneFromCart: ({ commit }, sku) => {
+    commit('REMOVE_ONE_FROM_CART', sku);
   },
   emptyCart: ({ commit }) => {
     commit('EMPTY_CART');
@@ -81,8 +81,8 @@ const mutations = {
 
     updateCartInLocalStorage();
   },
-  REMOVE_ONE_FROM_CART: (state, item) => {
-    let itemIndex = state.cart.findIndex(i => i.id === item.id);
+  REMOVE_ONE_FROM_CART: (state, sku) => {
+    let itemIndex = state.cart.findIndex(i => i.sku === sku);
 
     if (!state.cart[itemIndex]) {
       return;
