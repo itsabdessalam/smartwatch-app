@@ -166,6 +166,10 @@ export default {
         }
       }
 
+      &:last-child {
+        margin-left: 12px;
+      }
+
       .nav__link__cart__count {
         position: absolute;
         top: 0;

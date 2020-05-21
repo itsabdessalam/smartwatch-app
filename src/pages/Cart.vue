@@ -252,7 +252,9 @@ export default {
       }
     }
     .cart__item__quantity {
-      margin: 0 12px;
+      width: 32px;
+      height: 24px;
+      text-align: center;
     }
 
     .cart__item__remove {
@@ -265,7 +267,7 @@ export default {
 
       svg {
         fill: currentColor;
-        width: 16px;
+        width: 12px;
       }
     }
   }
