@@ -7,10 +7,10 @@ const normalizeFields = fields => {
         title: fields.post_title,
         slug: fields.post_name,
         date: fields.post_date,
-        content: fields.post_content,
         type: fields.post_type,
         status: fields.post_status,
         image: fields.custom_fields.image,
+        content: fields.custom_fields.content,
       };
     case 'product':
       return {
@@ -18,7 +18,6 @@ const normalizeFields = fields => {
         name: fields.post_title,
         slug: fields.post_name,
         date: fields.post_date,
-        content: fields.post_content,
         type: fields.post_type,
         status: fields.post_status,
         image: fields.custom_fields.image,

@@ -25,22 +25,7 @@ export default {
     };
   },
   methods: {
-    register() {
-      const data = {
-        name: 'toto',
-        email: 'test@test.com',
-        password: '12345678',
-      };
-      this.$store
-        .dispatch('register', data)
-        .then(() => {
-          this.$router.push('/account');
-        })
-        .catch(error => {
-          this.authStatus = this.$store.getters.authStatus;
-          this.authStatusMessage = error.message;
-        });
-    },
+    register() {},
   },
 };
 </script>

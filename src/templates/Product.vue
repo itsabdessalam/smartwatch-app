@@ -88,7 +88,6 @@ query Product ($id: ID!) {
     product: product (id: $id) {
         id
         name
-        content
         slug
         date
         type

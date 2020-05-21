@@ -124,7 +124,6 @@ query {
       node {
         id
         name
-        content
         slug
         date
         type

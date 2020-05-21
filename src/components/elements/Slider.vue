@@ -96,7 +96,6 @@ export default {
   height: 500px;
   background-color: #ffffff;
   position: relative;
-  overflow: hidden;
 
   .slider__items {
     height: 100%;
@@ -114,8 +113,8 @@ export default {
 
   .slider__controls {
     position: absolute;
-    width: 96px;
-    bottom: 12px;
+    width: 108;
+    bottom: -16px;
     right: 36px;
     display: flex;
     align-items: center;
@@ -125,6 +124,7 @@ export default {
     .slider__controls__next {
       width: 48px;
       height: 48px;
+      background-color: #000000;
 
       > a {
         width: 100%;
@@ -135,13 +135,14 @@ export default {
         cursor: pointer;
 
         svg {
-          fill: currentColor;
+          fill: #ffffff;
           width: 18px;
         }
       }
     }
 
     .slider__controls__prev {
+      margin-right: 12px;
       > a {
         svg {
           transform: rotate(180deg);
