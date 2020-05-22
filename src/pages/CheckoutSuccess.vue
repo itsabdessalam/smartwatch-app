@@ -9,5 +9,8 @@ export default {
   metaInfo: {
     title: 'Checkout success!',
   },
+  mounted() {
+    this.$store.dispatch('emptyCart');
+  },
 };
 </script>

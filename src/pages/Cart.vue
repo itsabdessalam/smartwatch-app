@@ -61,12 +61,19 @@
                   @click.prevent="removeFromCart(product.sku)"
                   class="cart__item__remove"
                 >
-                  <svg viewBox="0 0 22.6 22.6">
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M22.6 1.4L21.2 0l-9.9 9.9L1.4 0 0 1.4l9.9 9.9L0 21.2l1.4 1.4 9.9-9.9 9.9 9.9 1.4-1.4-9.9-9.9z"
-                    ></path>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
                 </Button>
               </td>
@@ -147,12 +154,13 @@ export default {
         return {
           name: item.name,
           description: item.name,
+          sku: item.sku,
+          slug: item.slug,
           images: [item.image],
           amount: parseFloat(item.amount).toFixed(2) * 100,
           currency: item.currency,
           quantity:
             item.quantity > 0 && item.quantity <= 10 ? item.quantity : 1,
-          sku: item.sku,
         };
       });
 
@@ -267,7 +275,7 @@ export default {
 
       svg {
         fill: currentColor;
-        width: 12px;
+        width: 18px;
       }
     }
   }

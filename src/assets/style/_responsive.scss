@@ -8,7 +8,7 @@
   .nav {
     .nav__links {
       &.nav__links--mobile {
-        display: block;
+        display: flex;
       }
 
       &.nav__links--desktop {

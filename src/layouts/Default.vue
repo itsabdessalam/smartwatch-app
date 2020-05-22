@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import AuthService from '../../services/AuthService';
+
 import Header from '~/components/layout/Header';
 import Footer from '~/components/layout/Footer';
 import BackToTop from '~/components/elements/BackToTop';
@@ -20,7 +22,11 @@ export default {
     return {
       deviceWatcher: null,
       device: '',
+      user: '',
     };
+  },
+  async created() {
+    await this.checkAuth();
   },
   mounted() {
     this.deviceWatcher = document.getElementById('device');
@@ -35,6 +41,11 @@ export default {
     Footer,
     BackToTop,
   },
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+  },
   methods: {
     setDevice() {
       const device = getComputedStyle(
@@ -43,6 +54,27 @@ export default {
       ).content.replace(/"/g, '');
       if (this.device !== device) {
         this.device = device;
+      }
+    },
+    async checkAuth() {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const { data } = await AuthService.ping(this.token);
+      } catch (error) {
+        this.handleError(error);
+      }
+    },
+    handleError(error) {
+      if (error && error.response && error.response.status === 401) {
+        if (this.token) {
+          this.$store.dispatch('logout');
+          if (
+            this.$route.path !== '/login' &&
+            this.$route.path === '/account'
+          ) {
+            this.$router.push('/login');
+          }
+        }
       }
     },
   },

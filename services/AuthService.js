@@ -12,5 +12,9 @@ module.exports = {
       'Content-Type': 'application/json',
     });
   },
-  ping() {},
+  ping(token) {
+    return axios.get(`${API_URL_AUTH}/auth/ping`, {
+      headers: { token },
+    });
+  },
 };
