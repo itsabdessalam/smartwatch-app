@@ -171,6 +171,13 @@ export default {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  position: fixed;
+  width: 100vw;
+  height: 102px;
+  max-width: 1170px;
+  top: 0;
+  z-index: 1200;
+  background: $background;
 
   .nav__links {
     display: flex;
