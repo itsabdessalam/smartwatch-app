@@ -12,9 +12,21 @@ const getPosts = async actions => {
 
 const getProducts = async actions => {
   const { data } = await WPService.getProducts();
-  const collection = actions.addCollection('Product');
+  const productsCollection = actions.addCollection('Product');
+  const normalizedData = [];
+
   for (const product of data) {
-    collection.addNode(normalizeFields(product));
+    normalizedData.push(normalizeFields(product));
+    productsCollection.addNode(normalizeFields(product));
+  }
+
+  const brandsCollection = actions.addCollection('Brand');
+  const brands = [
+    ...new Set(normalizedData.map(item => item.brand && item.brand.name)),
+  ];
+
+  for (let index = 0; index < brands.length; index++) {
+    brandsCollection.addNode({ name: brands[index] });
   }
 };
 
