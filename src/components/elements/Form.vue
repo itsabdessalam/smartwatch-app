@@ -83,7 +83,6 @@ export default {
         vertical-align: middle;
         margin: 0;
         font-size: 24px;
-        font-weight: 500;
 
         * {
           display: block;
@@ -140,7 +139,7 @@ export default {
         border: 1px solid $inputBorder;
         color: $text;
         margin: 0;
-        padding: 16px 24px;
+        padding: 16px;
         width: 100%;
         display: block;
         font-size: 14px;
@@ -164,7 +163,6 @@ export default {
 
       label,
       .label {
-        font-weight: 500;
       }
 
       &--error {

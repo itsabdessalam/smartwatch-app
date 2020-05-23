@@ -20,6 +20,13 @@ body {
   }
 }
 
+input,
+select,
+textarea,
+button {
+  font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
+}
+
 a {
   text-decoration: none;
   color: $text;

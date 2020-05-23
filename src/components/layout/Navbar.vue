@@ -13,7 +13,6 @@
         <div class="nav__link__icons">
           <g-link class="nav__link nav__link--icon" to="/login" title="Login">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -29,7 +28,6 @@
           </g-link>
           <g-link class="nav__link nav__link--icon" to="/cart" title="Cart">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -57,7 +55,6 @@
       <a class="nav__link__menu" @click.prevent="handleClick">
         <svg
           v-if="!isMenuOpen"
-          xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -74,7 +71,6 @@
         </svg>
         <svg
           v-else
-          xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -92,7 +88,6 @@
       <div class="nav__link__icons">
         <g-link class="nav__link nav__link--icon" to="/cart" title="Cart">
           <svg
-            xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -200,7 +195,7 @@ export default {
 
         .nav__link {
           &--icon {
-            margin: 0;
+            margin: 0 !important;
           }
         }
       }

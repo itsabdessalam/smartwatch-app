@@ -98,7 +98,8 @@ export default {
       this.subscribeError = '';
     },
     handleError(error) {
-      this.subscribeError = error.response.data.error;
+      this.subscribeError =
+        (error.response && error.response.data.error) || error.message;
     },
     subscribe() {
       const isValidForm = this.checkForm(this.fields);
@@ -159,7 +160,7 @@ export default {
       }
       input {
         width: 100%;
-        padding: 16px 24px;
+        padding: 16px;
         font-size: 14px;
       }
     }

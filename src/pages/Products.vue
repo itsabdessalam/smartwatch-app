@@ -165,21 +165,39 @@ export default {
       position: relative;
       clear: both;
 
-      select {
-        background: #fcfcfc;
-        border: 1px solid $inputBorder;
-        color: $text;
-        margin: 0;
-        padding: 16px 24px;
-        width: 100%;
-        display: block;
-        font-size: 14px;
-        transition: border-color ease-in-out 0.2s, box-shadow ease-in-out 0.2s;
-        text-align: left;
-        height: auto;
-        -webkit-appearance: none;
-        outline: none;
-        cursor: pointer;
+      &.select {
+        select {
+          background: #fcfcfc;
+          border: 1px solid $inputBorder;
+          color: $text;
+          margin: 0;
+          padding: 16px 48px 16px 24px;
+          width: 100%;
+          display: block;
+          font-size: 14px;
+          transition: border-color ease-in-out 0.2s, box-shadow ease-in-out 0.2s;
+          text-align: left;
+          height: auto;
+          position: relative;
+          -webkit-appearance: none;
+          outline: none;
+          cursor: pointer;
+        }
+
+        &::after {
+          content: '';
+          display: inline-block;
+          position: absolute;
+          background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMzNDQ5NWUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWxpbmUgcG9pbnRzPSI2IDkgMTIgMTUgMTggOSI+PC9wb2x5bGluZT48L3N2Zz4=');
+          background-size: 16px;
+          height: 16px;
+          width: 16px;
+          position: absolute;
+          right: 5px;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+        }
       }
     }
   }

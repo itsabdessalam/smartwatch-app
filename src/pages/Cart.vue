@@ -24,11 +24,13 @@
           <tbody>
             <tr v-for="product in cart" :key="product.id" class="cart__item">
               <td>
-                <g-image
-                  v-if="product.image"
-                  :src="product.image"
-                  :alt="product.name"
-                />
+                <g-link :to="`/products/${product.slug}`">
+                  <g-image
+                    v-if="product.image"
+                    :src="product.image"
+                    :alt="product.name"
+                  />
+                </g-link>
               </td>
               <td>{{ product.name }}</td>
               <td>{{ product.amount }} €</td>
@@ -62,7 +64,6 @@
                   class="cart__item__remove"
                 >
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"

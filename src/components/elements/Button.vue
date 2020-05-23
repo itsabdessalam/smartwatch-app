@@ -23,7 +23,6 @@ export default {
   transition: all ease-out 0.2s;
   background-color: transparent;
   font-size: 14px;
-  font-weight: 500;
   min-width: 120px;
   padding: 16px 24px;
   min-width: 128px;

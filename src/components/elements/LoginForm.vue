@@ -40,6 +40,9 @@
       </template>
       <template #footer>
         <div class="inner__footer">
+          <g-link to="/register">
+            You do not have an account?
+          </g-link>
           <Button
             class="button--primary submit"
             :disabled="isLoading"
@@ -97,7 +100,7 @@ export default {
     checkPassword(password) {
       if (!isValidPassword(password)) {
         this.errors.password =
-          'Password is required and length must be at least 8 characters long!';
+          'Password is required and must be at least 8 characters long!';
       }
     },
     checkForm(data) {
@@ -108,7 +111,8 @@ export default {
     },
     handleError(error) {
       this.authStatus = this.$store.getters.authStatus;
-      this.authStatusMessage = error.response.data.error || error.message;
+      this.authStatusMessage =
+        (error.response && error.response.data.error) || error.message;
     },
     hasError(field) {
       return this.errors[field];
@@ -149,6 +153,14 @@ export default {
   }
   .form__footer {
     justify-content: flex-end;
+
+    .inner__footer {
+      width: 100%;
+
+      .submit {
+        margin-left: auto;
+      }
+    }
   }
 }
 </style>
