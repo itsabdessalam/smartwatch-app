@@ -117,10 +117,14 @@ export default {
       const isValidForm = this.checkForm(data);
 
       if (isValidForm) {
+        this.isLoading = true;
+
         try {
           await ContactService.submit(JSON.stringify(data));
+          this.isLoading = false;
           this.$router.push('/contact-submit-success');
         } catch (error) {
+          this.isLoading = false;
           this.handleError(error);
         }
       }
