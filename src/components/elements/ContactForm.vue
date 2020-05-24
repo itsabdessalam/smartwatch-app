@@ -1,21 +1,10 @@
 <template>
   <div>
     <div class="form contact__form">
-      <form
-        method="post"
-        novalidate="novalidate"
-        autocomplete="disabled"
-        name="contact"
-        class="form__inner"
-        netlify
-        @submit.prevent="submit"
-      >
+      <form class="form__inner" method="post" @submit.prevent="submit">
+        <input type="hidden" name="form-name" value="contact" />
         <div class="form__body">
-          <Alert
-            v-if="sendError === 'error'"
-            type="error"
-            :message="sendError"
-          />
+          <Alert v-if="sendError" type="error" :message="sendError" />
           <div class="field" :class="{ 'field--error': hasError('email') }">
             <label for="">Email</label>
             <input
