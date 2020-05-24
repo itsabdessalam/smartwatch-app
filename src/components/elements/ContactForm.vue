@@ -87,24 +87,22 @@ export default {
       this.errors[field] = '';
       this.sendError = '';
     },
-    encode(data) {
-      return Object.keys(data)
-        .map(
-          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`,
-        )
-        .join('&');
-    },
-    handleSubmit(event) {
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: this.encode({
-          'form-name': event.target.getAttribute('name'),
-          ...this.formData,
-        }),
-      })
-        .then(() => this.$router.push('/contact-submit-success/'))
-        .catch(error => alert(error));
+    async submit(event) {
+      const data = this.fields;
+      const isValidForm = this.checkForm(data);
+
+      if (isValidForm) {
+        this.isLoading = true;
+
+        try {
+          await ContactService.submit(data);
+          this.isLoading = false;
+          this.$router.push('/contact-submit-success');
+        } catch (error) {
+          this.isLoading = false;
+          this.handleError(error);
+        }
+      }
     },
   },
 };
