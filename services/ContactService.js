@@ -2,9 +2,9 @@ const axios = require('axios');
 
 module.exports = {
   submit(payload) {
-    return axios.post('/', payload, {
+    return axios.post('https://formspree.io/xyynezpq', payload, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
     });
   },

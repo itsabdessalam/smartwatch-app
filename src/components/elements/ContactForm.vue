@@ -1,33 +1,56 @@
 <template>
-  <form
-    name="contact"
-    method="post"
-    v-on:submit.prevent="handleSubmit"
-    action="/contact-submit-success/"
-    data-netlify="true"
-    data-netlify-honeypot="bot-field"
-  >
-    <input type="hidden" name="form-name" value="contact" />
-    <p hidden>
-      <label> Don’t fill this out: <input name="bot-field" /> </label>
-    </p>
-    <div class="sender-info">
-      <div>
-        <label for="name" class="label">Your name</label>
-        <input type="text" name="name" v-model="form.name" />
-      </div>
-      <div>
-        <label for="email">Your email</label>
-        <input type="email" name="email" v-model="form.email" />
-      </div>
-    </div>
-
-    <div class="message-wrapper">
-      <label for="message">Message</label>
-      <textarea name="message" v-model="form.message"></textarea>
-    </div>
-    <button type="submit">Submit form</button>
-  </form>
+  <div>
+    <Form class="contact__form">
+      <template #body>
+        <Alert v-if="sendError === 'error'" type="error" :message="sendError" />
+        <div class="field" :class="{ 'field--error': hasError('email') }">
+          <label for="">Email</label>
+          <input
+            class="input"
+            required
+            autocomplete="disabled"
+            v-model="fields.email"
+            type="email"
+            placeholder="user@email.com"
+            @keydown="resetError('email')"
+          />
+          <p v-if="hasError('email')" class="help error">
+            {{ hasError('email') }}
+          </p>
+        </div>
+        <div
+          class="field textarea"
+          :class="{ 'field--error': hasError('message') }"
+        >
+          <label for="">Message</label>
+          <textarea
+            class="message"
+            required
+            v-model="fields.message"
+            type="text"
+            autocomplete="disabled"
+            placeholder="Your message..."
+            @keydown="resetError('message')"
+          />
+          <p v-if="hasError('message')" class="help error">
+            {{ hasError('message') }}
+          </p>
+        </div>
+      </template>
+      <template #footer>
+        <div class="inner__footer">
+          <Button
+            class="button--primary submit"
+            :disabled="isLoading"
+            @click.prevent="submit"
+          >
+            <span v-if="!isLoading">Send</span>
+            <Loader v-else :color="'#ffffff'"></Loader>
+          </Button>
+        </div>
+      </template>
+    </Form>
+  </div>
 </template>
 
 <script>
@@ -49,15 +72,17 @@ export default {
       isLoading: false,
       errors: {},
       sendError: '',
-      form: {
+      fields: {
         email: '',
         message: '',
       },
     };
   },
   components: {
-    // Loader,
-    // Alert,
+    Form,
+    Button,
+    Loader,
+    Alert,
   },
   methods: {
     checkEmail(email) {
@@ -87,24 +112,18 @@ export default {
       this.errors[field] = '';
       this.sendError = '';
     },
-    encode(data) {
-      return Object.keys(data)
-        .map(
-          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`,
-        )
-        .join('&');
-    },
-    handleSubmit(event) {
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: this.encode({
-          'form-name': event.target.getAttribute('name'),
-          ...this.formData,
-        }),
-      })
-        .then(() => this.$router.push('/contact-submit-success/'))
-        .catch(error => alert(error));
+    async submit(event) {
+      const data = this.fields;
+      const isValidForm = this.checkForm(data);
+
+      if (isValidForm) {
+        try {
+          await ContactService.submit(JSON.stringify(data));
+          this.$router.push('/contact-submit-success');
+        } catch (error) {
+          this.handleError(error);
+        }
+      }
     },
   },
 };
