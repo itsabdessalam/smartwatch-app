@@ -101,21 +101,20 @@ export default {
       this.subscribeError =
         (error.response && error.response.data.error) || error.message;
     },
-    subscribe() {
+    async subscribe() {
       const isValidForm = this.checkForm(this.fields);
 
       if (isValidForm) {
         this.isLoading = true;
 
-        NewsletterService.subscribe(this.fields)
-          .then(() => {
-            this.isLoading = false;
-            this.$router.push('/newsletter-success');
-          })
-          .catch(error => {
-            this.isLoading = false;
-            this.handleError(error);
-          });
+        try {
+          await NewsletterService.subscribe(this.fields);
+          this.isLoading = false;
+          this.$router.push('/newsletter-success');
+        } catch (error) {
+          this.isLoading = false;
+          this.handleError(error);
+        }
       }
     },
   },
@@ -131,12 +130,6 @@ export default {
   h2 {
     margin-top: 0;
     margin-bottom: 8px;
-  }
-
-  .newsletter__content {
-  }
-
-  .newsletter__content__item--right {
   }
 
   .newsletter__content__item--left {

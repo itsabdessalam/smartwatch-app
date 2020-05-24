@@ -14,20 +14,16 @@ import RegisterForm from '~/components/elements/RegisterForm';
 
 export default {
   metaInfo: {
-    title: 'Login',
+    title: 'Register',
+    meta: [
+      {
+        name: 'description',
+        content: 'smatwatch website',
+      },
+    ],
   },
   components: {
     RegisterForm,
   },
 };
 </script>
-
-<style lang="scss">
-.register {
-  h1 {
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-</style>

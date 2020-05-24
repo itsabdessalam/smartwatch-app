@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <g-link class="logo" title="Home" to="/">
     smartwatch
   </g-link>

@@ -3,21 +3,13 @@
     <h1 class="page__title">News</h1>
     <div class="posts container">
       <div class="posts__grid row">
-        <div
-          v-for="edge in $page.posts.edges"
-          :key="edge.node.id"
-          class="post col-4"
-        >
-          <g-link :to="`/posts/${edge.node.slug}`">
+        <div v-for="post in posts" :key="post.id" class="post col-4">
+          <g-link :to="`/posts/${post.slug}`">
             <div class="post__preview">
-              <g-image
-                v-if="edge.node.image"
-                :alt="edge.node.title"
-                :src="edge.node.image"
-              />
+              <g-image v-if="post.image" :alt="post.title" :src="post.image" />
             </div>
             <div class="post__caption">
-              <span class="post__name">{{ edge.node.title }}</span>
+              <span class="post__name">{{ post.title }}</span>
             </div>
           </g-link>
         </div>
@@ -48,6 +40,20 @@ query {
 export default {
   metaInfo: {
     title: 'News',
+    meta: [
+      {
+        name: 'description',
+        content: 'smatwatch website',
+      },
+    ],
+  },
+  data() {
+    return {};
+  },
+  created() {
+    if (this.$page) {
+      this.posts = this.$page.posts.edges.map(edge => edge.node);
+    }
   },
 };
 </script>

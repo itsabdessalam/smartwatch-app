@@ -92,13 +92,25 @@ import Loader from '~/components/elements/Loader';
 export default {
   metaInfo: {
     title: 'Account',
+    meta: [
+      {
+        name: 'description',
+        content: 'smatwatch website',
+      },
+    ],
   },
   data() {
     return {
       isLoading: false,
       error: '',
       orders: [],
+      products: [],
     };
+  },
+  created() {
+    if (this.$page) {
+      this.products = this.$page.products.edges.map(edge => edge.node);
+    }
   },
   components: {
     Loader,
@@ -130,11 +142,8 @@ export default {
       }
     },
     getProductImage(sku) {
-      const found = this.$page.products.edges.filter(
-        product => product.node.sku === sku,
-      )[0];
-
-      return (found && found.node && found.node.image) || null;
+      const found = this.products.filter(product => product.sku === sku)[0];
+      return (found && found.image) || null;
     },
   },
 };

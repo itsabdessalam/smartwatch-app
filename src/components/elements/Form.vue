@@ -5,6 +5,8 @@
       @keydown.enter.prevent=""
       novalidate="true"
       autocomplete="disabled"
+      :name="name"
+      :attribute="attribute"
     >
       <header class="form__header">
         <slot name="header"></slot>
@@ -22,6 +24,16 @@
 <script>
 export default {
   name: 'Form',
+  props: {
+    name: {
+      type: String,
+      default: '',
+    },
+    attribute: {
+      type: String,
+      default: '',
+    },
+  },
   methods: {
     submit() {
       this.$emit('submit');
@@ -135,7 +147,7 @@ export default {
       .input,
       select,
       textarea {
-        background: #fcfcfc;
+        background: #ffffff;
         border: 1px solid $inputBorder;
         color: $text;
         margin: 0;
@@ -159,10 +171,6 @@ export default {
         &.error {
           color: $error;
         }
-      }
-
-      label,
-      .label {
       }
 
       &--error {

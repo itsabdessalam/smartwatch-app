@@ -61,11 +61,11 @@ export default {
   background: $primary;
   cursor: pointer;
   transform: translateY(250px);
-  transition: 0.5s transform ease-out;
+  transition: transform ease-out 0.5s;
 
   > svg {
     fill: currentColor;
-    width: 18px;
+    width: 16px;
     transform: rotate(-90deg);
   }
   &.visible {

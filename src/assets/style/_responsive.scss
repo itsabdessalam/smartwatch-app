@@ -5,10 +5,15 @@
     }
   }
 
+  .page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .nav {
     left: 0;
     padding: 12px;
-    
+
     .nav__links {
       &.nav__links--mobile {
         display: flex;

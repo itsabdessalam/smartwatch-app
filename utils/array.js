@@ -11,4 +11,11 @@ const shuffle = array => {
   return ref;
 };
 
-module.exports = { shuffle };
+const sortByField = (array, field, order = 'asc') => {
+  const ref = deepClone(array);
+  return ref.sort((a, b) =>
+    order === 'asc' ? a[field] - b[field] : b[field] - a[field],
+  );
+};
+
+module.exports = { shuffle, sortByField };

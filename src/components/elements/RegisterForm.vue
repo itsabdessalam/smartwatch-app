@@ -1,9 +1,9 @@
-<template lang="">
+<template>
   <div>
     <Form class="register__form">
       <template #body>
         <Alert
-          v-show="authStatus === 'error'"
+          v-if="authStatus === 'error'"
           type="error"
           :message="authStatusMessage"
         />
@@ -143,19 +143,17 @@ export default {
       this.errors[field] = '';
       this.authStatus = '';
     },
-    register() {
+    async register() {
       const data = this.fields;
       const isValidForm = this.checkForm(data);
 
       if (isValidForm) {
-        this.$store
-          .dispatch('register', data)
-          .then(() => {
-            this.$router.push('/account');
-          })
-          .catch(error => {
-            this.handleError(error);
-          });
+        try {
+          await this.$store.dispatch('register', data);
+          this.$router.push('/account');
+        } catch (error) {
+          this.handleError(error);
+        }
       }
     },
   },
@@ -164,10 +162,6 @@ export default {
 
 <style lang="scss">
 .register__form {
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-
   .form__inner {
     .field {
       margin-bottom: 24px;
@@ -179,6 +173,11 @@ export default {
 
     .inner__footer {
       width: 100%;
+
+      > a {
+        display: block;
+        margin-bottom: 12px;
+      }
 
       .submit {
         margin-left: auto;

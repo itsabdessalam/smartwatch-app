@@ -1,12 +1,8 @@
 <template>
   <div>
-    <Form class="login__form">
+    <Form class="contact__form" :name="'contact'">
       <template #body>
-        <Alert
-          v-if="authStatus === 'error'"
-          type="error"
-          :message="authStatusMessage"
-        />
+        <Alert v-if="sendError === 'error'" type="error" :message="sendError" />
         <div class="field" :class="{ 'field--error': hasError('email') }">
           <label for="">Email</label>
           <input
@@ -22,33 +18,33 @@
             {{ hasError('email') }}
           </p>
         </div>
-        <div class="field" :class="{ 'field--error': hasError('password') }">
-          <label for="">Password</label>
-          <input
-            class="input"
+        <div
+          class="field textarea"
+          :class="{ 'field--error': hasError('message') }"
+        >
+          <label for="">Message</label>
+          <textarea
+            class="message"
             required
-            v-model="fields.password"
-            type="password"
+            v-model="fields.message"
+            type="text"
             autocomplete="disabled"
-            placeholder="••••••••••••"
-            @keydown="resetError('password')"
+            placeholder="Your message..."
+            @keydown="resetError('message')"
           />
-          <p v-if="hasError('password')" class="help error">
-            {{ hasError('password') }}
+          <p v-if="hasError('message')" class="help error">
+            {{ hasError('message') }}
           </p>
         </div>
       </template>
       <template #footer>
         <div class="inner__footer">
-          <g-link to="/register">
-            You do not have an account?
-          </g-link>
           <Button
             class="button--primary submit"
             :disabled="isLoading"
-            @click.prevent="login"
+            @click.prevent="submit"
           >
-            <span v-if="!isLoading">Login</span>
+            <span v-if="!isLoading">Send</span>
             <Loader v-else :color="'#ffffff'"></Loader>
           </Button>
         </div>
@@ -59,6 +55,8 @@
 
 <script>
 /* eslint-disable no-unused-vars */
+import ContactService from '../../../services/ContactService';
+
 import { isValidEmail, isValidPassword } from '../../../utils/validator';
 import { size } from '../../../utils/common';
 
@@ -68,22 +66,17 @@ import Loader from '~/components/elements/Loader';
 import Alert from '~/components/elements/Alert';
 
 export default {
-  name: 'LoginForm',
+  name: 'ContactForm',
   data() {
     return {
+      isLoading: false,
       errors: {},
-      authStatus: '',
-      authStatusMessage: '',
+      sendError: '',
       fields: {
         email: '',
-        password: '',
+        message: '',
       },
     };
-  },
-  computed: {
-    isLoading() {
-      return this.$store.getters.authStatus === 'loading';
-    },
   },
   components: {
     Button,
@@ -97,21 +90,19 @@ export default {
         this.errors.email = 'Email is required and must be valid!';
       }
     },
-    checkPassword(password) {
-      if (!isValidPassword(password)) {
-        this.errors.password =
-          'Password is required and must be at least 8 characters long!';
+    checkMessage(message) {
+      if (!message.length) {
+        this.errors.message = 'Message is required!';
       }
     },
     checkForm(data) {
       this.errors = {};
       this.checkEmail(data.email);
-      this.checkPassword(data.password);
+      this.checkMessage(data.message);
       return size(this.errors) === 0;
     },
     handleError(error) {
-      this.authStatus = this.$store.getters.authStatus;
-      this.authStatusMessage =
+      this.sendError =
         (error.response && error.response.data.error) || error.message;
     },
     hasError(field) {
@@ -119,17 +110,33 @@ export default {
     },
     resetError(field) {
       this.errors[field] = '';
-      this.authStatus = '';
+      this.sendError = '';
     },
-    async login() {
+    encode(data) {
+      return Object.keys(data)
+        .map(
+          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`,
+        )
+        .join('&');
+    },
+    async submit() {
       const data = this.fields;
       const isValidForm = this.checkForm(data);
 
       if (isValidForm) {
+        this.isLoading = true;
+
         try {
-          await this.$store.dispatch('login', data);
-          this.$router.push('/account');
+          await ContactService.submit(
+            this.encode({
+              'form-name': 'contact',
+              ...data,
+            }),
+          );
+          this.isLoading = false;
+          this.$router.push('/contact-submit-success');
         } catch (error) {
+          this.isLoading = false;
           this.handleError(error);
         }
       }
@@ -139,7 +146,7 @@ export default {
 </script>
 
 <style lang="scss">
-.login__form {
+.contact__form {
   .form__inner {
     .field {
       margin-bottom: 24px;

@@ -8,6 +8,12 @@
 export default {
   metaInfo: {
     title: 'Newsletter success!',
+    meta: [
+      {
+        name: 'description',
+        content: 'smatwatch website',
+      },
+    ],
   },
 };
 </script>

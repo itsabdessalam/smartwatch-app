@@ -5,19 +5,19 @@
         <div class="row">
           <div class="product__preview col-7">
             <g-image
+              v-if="product.image"
+              :src="product.image"
               alt="Product preview"
               width="290"
               height="280"
-              v-if="$page.product.image"
-              :src="$page.product.image"
             />
           </div>
           <div class="product__details col-5">
             <h1 class="product__title">
-              {{ $page.product.name }}
+              {{ product.name }}
             </h1>
-            <p class="product__brand">{{ $page.product.brand.name }}</p>
-            <p class="product__price">{{ $page.product.amount }} €</p>
+            <p class="product__brand">{{ product.brand.name }}</p>
+            <p class="product__price">{{ product.amount }} €</p>
 
             <div class="product__actions">
               <Button
@@ -44,6 +44,17 @@
 import Button from '~/components/elements/Button';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.product.name,
+      meta: [
+        {
+          name: 'description',
+          content: this.product.description,
+        },
+      ],
+    };
+  },
   data() {
     return {
       quantity: 1,
@@ -54,7 +65,9 @@ export default {
     Button,
   },
   created() {
-    this.product = this.$page.product;
+    if (this.$page) {
+      this.product = this.$page.product;
+    }
   },
   methods: {
     async addOneToCart() {
@@ -68,17 +81,6 @@ export default {
       const { sku } = this.product;
       await this.$store.dispatch('removeOneFromCart', sku);
     },
-  },
-  metaInfo() {
-    return {
-      title: this.$page.product.name,
-      meta: [
-        {
-          name: 'description',
-          content: this.$page.product.description,
-        },
-      ],
-    };
   },
 };
 </script>

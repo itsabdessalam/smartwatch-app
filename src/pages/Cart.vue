@@ -5,7 +5,7 @@
         Cart
       </h1>
       <Alert
-        v-show="cartCount > 0 && !isAuthenticated"
+        v-if="cartCount > 0 && !isAuthenticated"
         type="warning"
         :message="'You must be logged in to procced to checkout'"
       />
@@ -118,6 +118,12 @@ import Alert from '~/components/elements/Alert';
 export default {
   metaInfo: {
     title: 'Cart',
+    meta: [
+      {
+        name: 'description',
+        content: 'smatwatch website',
+      },
+    ],
   },
   data() {
     return {

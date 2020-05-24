@@ -136,7 +136,7 @@ export default {
 
         svg {
           fill: #ffffff;
-          width: 18px;
+          width: 16px;
         }
       }
     }
