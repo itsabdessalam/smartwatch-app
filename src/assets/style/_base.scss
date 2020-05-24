@@ -96,6 +96,15 @@ span {
   border-bottom-width: 0;
 }
 
+[hidden],
+.hidden {
+  display: none;
+  visibility: hidden;
+  overflow: hidden;
+  height: 0;
+  width: 0;
+}
+
 .screen-only {
   position: absolute;
   top: -100000px;
