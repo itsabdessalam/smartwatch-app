@@ -6,7 +6,6 @@
       novalidate="true"
       autocomplete="disabled"
       :name="name"
-      :attribute="attribute"
     >
       <header class="form__header">
         <slot name="header"></slot>
@@ -29,10 +28,15 @@ export default {
       type: String,
       default: '',
     },
-    attribute: {
-      type: String,
-      default: '',
+    netlify: {
+      type: Boolean,
+      default: false,
     },
+  },
+  mounted() {
+    if (this.netlify) {
+      this.$el.querySelector('form').setAttribute('netlify', '');
+    }
   },
   methods: {
     submit() {

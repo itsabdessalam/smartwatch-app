@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Form class="contact__form" :name="'contact'">
+    <Form class="contact__form" :name="'contact'" :netlify="true">
       <template #body>
         <Alert v-if="sendError === 'error'" type="error" :message="sendError" />
         <div class="field" :class="{ 'field--error': hasError('email') }">
