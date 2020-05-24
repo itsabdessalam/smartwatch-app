@@ -29,17 +29,21 @@
           <h2>Orders</h2>
           <div v-for="order in orders" :key="order._id" class="user__order">
             <div class="user__order__details row">
-              <div class="user__order__details__item col-4">
+              <div class="user__order__details__item col-3">
                 <span class="item__title">Order</span>
                 <span>{{ order._id }}</span>
               </div>
-              <div class="user__order__details__item col-4">
+              <div class="user__order__details__item col-3">
                 <span class="item__title">Shipping date</span>
                 <span>{{ order.createdAt | toLocaleDate }}</span>
               </div>
-              <div class="user__order__details__item col-4">
+              <div class="user__order__details__item col-3">
                 <span class="item__title">Status</span>
-                <span> {{ order.status }}</span>
+                <span>{{ order.status }}</span>
+              </div>
+              <div class="user__order__details__item col-3">
+                <span class="item__title">Total</span>
+                <span>{{ parseFloat(order.total / 100).toFixed(2) }} €</span>
               </div>
             </div>
             <div class="user__order__products">
