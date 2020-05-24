@@ -51,7 +51,11 @@
                   class="user__order__product col-1"
                 >
                   <g-link :to="`/products/${product.slug}`">
-                    <g-image :src="`${product.custom.images[0]}`" width="60" />
+                    <g-image
+                      v-if="getProductImage(product.sku)"
+                      :src="`${getProductImage(product.sku)}`"
+                      width="60"
+                    />
                     <span>{{ product.name.substring(0, 5) }}...</span>
                   </g-link>
                 </li>
@@ -64,12 +68,21 @@
   </Layout>
 </template>
 
+<page-query>
+query {
+  products: allProduct(filter: { status: { eq: "publish" } }) {
+    edges {
+      node {
+        sku
+        image
+      }
+    }
+  }
+}
+</page-query>
+
 <script>
 import UserService from '../../services/UserService';
-// import { isValidEmail } from '../../../utils/validator';
-// import { size } from '../../../utils/common';
-
-// import Button from '~/components/elements/Button';
 import Loader from '~/components/elements/Loader';
 
 export default {
@@ -111,6 +124,13 @@ export default {
       } finally {
         this.isLoading = false;
       }
+    },
+    getProductImage(sku) {
+      const found = this.$page.products.edges.filter(
+        product => product.node.sku === sku,
+      )[0];
+
+      return (found && found.node && found.node.image) || null;
     },
   },
 };
