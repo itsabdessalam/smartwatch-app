@@ -120,7 +120,7 @@ export default {
         this.isLoading = true;
 
         try {
-          await ContactService.submit(JSON.stringify(data));
+          await ContactService.submit(data);
           this.isLoading = false;
           this.$router.push('/contact-submit-success');
         } catch (error) {
