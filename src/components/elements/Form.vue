@@ -5,7 +5,6 @@
       @keydown.enter.prevent=""
       novalidate="true"
       autocomplete="disabled"
-      :name="name"
     >
       <header class="form__header">
         <slot name="header"></slot>
@@ -23,21 +22,7 @@
 <script>
 export default {
   name: 'Form',
-  props: {
-    name: {
-      type: String,
-      default: '',
-    },
-    netlify: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  mounted() {
-    if (this.netlify) {
-      this.$el.querySelector('form').setAttribute('netlify', '');
-    }
-  },
+
   methods: {
     submit() {
       this.$emit('submit');

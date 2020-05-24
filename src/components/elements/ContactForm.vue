@@ -1,55 +1,69 @@
 <template>
   <div>
-    <Form class="contact__form" :name="'contact'" :netlify="true">
-      <template #body>
-        <Alert v-if="sendError === 'error'" type="error" :message="sendError" />
-        <div class="field" :class="{ 'field--error': hasError('email') }">
-          <label for="">Email</label>
-          <input
-            class="input"
-            required
-            autocomplete="disabled"
-            v-model="fields.email"
-            type="email"
-            placeholder="user@email.com"
-            @keydown="resetError('email')"
+    <div class="form contact__form">
+      <form
+        method="post"
+        novalidate="novalidate"
+        autocomplete="disabled"
+        name="contact"
+        class="form__inner"
+        netlify
+        @submit.prevent="submit"
+      >
+        <div class="form__body">
+          <Alert
+            v-if="sendError === 'error'"
+            type="error"
+            :message="sendError"
           />
-          <p v-if="hasError('email')" class="help error">
-            {{ hasError('email') }}
-          </p>
-        </div>
-        <div
-          class="field textarea"
-          :class="{ 'field--error': hasError('message') }"
-        >
-          <label for="">Message</label>
-          <textarea
-            class="message"
-            required
-            v-model="fields.message"
-            type="text"
-            autocomplete="disabled"
-            placeholder="Your message..."
-            @keydown="resetError('message')"
-          />
-          <p v-if="hasError('message')" class="help error">
-            {{ hasError('message') }}
-          </p>
-        </div>
-      </template>
-      <template #footer>
-        <div class="inner__footer">
-          <Button
-            class="button--primary submit"
-            :disabled="isLoading"
-            @click.prevent="submit"
+          <div class="field" :class="{ 'field--error': hasError('email') }">
+            <label for="">Email</label>
+            <input
+              class="input"
+              required
+              autocomplete="disabled"
+              v-model="fields.email"
+              type="email"
+              placeholder="user@email.com"
+              @keydown="resetError('email')"
+            />
+            <p v-if="hasError('email')" class="help error">
+              {{ hasError('email') }}
+            </p>
+          </div>
+          <div
+            class="field textarea"
+            :class="{ 'field--error': hasError('message') }"
           >
-            <span v-if="!isLoading">Send</span>
-            <Loader v-else :color="'#ffffff'"></Loader>
-          </Button>
+            <label for="">Message</label>
+            <textarea
+              class="message"
+              required
+              v-model="fields.message"
+              type="text"
+              autocomplete="disabled"
+              placeholder="Your message..."
+              @keydown="resetError('message')"
+            />
+            <p v-if="hasError('message')" class="help error">
+              {{ hasError('message') }}
+            </p>
+          </div>
         </div>
-      </template>
-    </Form>
+        <footer class="form__footer">
+          <div class="inner__footer">
+            <button
+              type="submit"
+              class="button button--primary submit"
+              :disabled="isLoading"
+            >
+              <span v-if="!isLoading">Send</span>
+              <Loader v-else :color="'#ffffff'"></Loader>
+            </button>
+          </div>
+        </footer>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -79,8 +93,6 @@ export default {
     };
   },
   components: {
-    Button,
-    Form,
     Loader,
     Alert,
   },
