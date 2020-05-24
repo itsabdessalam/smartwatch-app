@@ -118,7 +118,6 @@ export default {
 
       if (isValidForm) {
         this.isLoading = true;
-
         try {
           await ContactService.submit(data);
           this.isLoading = false;
