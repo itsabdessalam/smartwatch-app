@@ -11,7 +11,7 @@
               class="input"
               required
               autocomplete="disabled"
-              v-model="fields.email"
+              v-model="form.email"
               type="email"
               placeholder="user@email.com"
               @keydown="resetError('email')"
@@ -28,7 +28,7 @@
             <textarea
               class="message"
               required
-              v-model="fields.message"
+              v-model="form.message"
               type="text"
               autocomplete="disabled"
               placeholder="Your message..."
@@ -75,7 +75,7 @@ export default {
       isLoading: false,
       errors: {},
       sendError: '',
-      fields: {
+      form: {
         email: '',
         message: '',
       },
@@ -120,27 +120,21 @@ export default {
         )
         .join('&');
     },
-    async submit() {
-      const data = this.fields;
-      const isValidForm = this.checkForm(data);
-
-      if (isValidForm) {
-        this.isLoading = true;
-
-        try {
-          await ContactService.submit(
-            this.encode({
-              'form-name': 'contact',
-              ...data,
-            }),
-          );
-          this.isLoading = false;
+    submit() {
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: this.encode({
+          'form-name': 'contact',
+          ...this.form,
+        }),
+      })
+        .then(() => {
           this.$router.push('/contact-submit-success');
-        } catch (error) {
-          this.isLoading = false;
-          this.handleError(error);
-        }
-      }
+        })
+        .catch(() => {
+          this.$router.push('404');
+        });
     },
   },
 };
