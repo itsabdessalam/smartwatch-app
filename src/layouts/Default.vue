@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import AuthService from '../../services/AuthService';
+import axios from 'axios';
 
 import Header from '~/components/layout/Header';
 import Footer from '~/components/layout/Footer';
@@ -25,8 +25,8 @@ export default {
       user: '',
     };
   },
-  async created() {
-    await this.checkAuth();
+  created() {
+    this.checkAuth();
   },
   mounted() {
     this.deviceWatcher = document.getElementById('device');
@@ -56,24 +56,19 @@ export default {
         this.device = device;
       }
     },
-    async checkAuth() {
-      try {
+    checkAuth() {
+      axios.interceptors.response.use(undefined, err => {
         // eslint-disable-next-line no-unused-vars
-        const { data } = await AuthService.ping(this.token);
-      } catch (error) {
-        this.handleError(error);
-      }
+        return new Promise((resolve, reject) => {
+          this.handleError(err);
+        });
+      });
     },
     handleError(error) {
       if (error && error.response && error.response.status === 401) {
-        if (this.token) {
-          this.$store.dispatch('logout');
-          if (
-            this.$route.path !== '/login' &&
-            this.$route.path === '/account'
-          ) {
-            this.$router.push('/login');
-          }
+        this.$store.dispatch('logout');
+        if (this.$route.path !== '/login' && this.$route.path === '/account') {
+          this.$router.push('/login');
         }
       }
     },
