@@ -159,6 +159,7 @@ export default {
     async handleCheckout() {
       const items = this.cart.map(item => {
         return {
+          id: item.id,
           name: item.name,
           description: item.name,
           sku: item.sku,
