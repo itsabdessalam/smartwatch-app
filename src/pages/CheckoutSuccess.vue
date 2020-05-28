@@ -1,19 +1,22 @@
 <template>
   <Layout>
-    <h1>About</h1>
+    <h1>Checkout success!</h1>
   </Layout>
 </template>
 
 <script>
 export default {
   metaInfo: {
-    title: 'About',
+    title: 'Checkout success!',
     meta: [
       {
         name: 'description',
         content: 'smatwatch website',
       },
     ],
+  },
+  mounted() {
+    this.$store.dispatch('emptyCart');
   },
 };
 </script>

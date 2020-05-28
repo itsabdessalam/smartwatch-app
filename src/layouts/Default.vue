@@ -1,50 +1,94 @@
 <template>
-  <div class="layout">
-    <header class="header">
-      <strong>
-        <g-link to="/">{{ $static.metadata.siteName }}</g-link>
-      </strong>
-      <nav class="nav">
-        <g-link class="nav__link" to="/">Home</g-link>
-        <g-link class="nav__link" to="/about/">About</g-link>
-      </nav>
-    </header>
-    <slot/>
+  <div class="layout" :data-device="device">
+    <Header />
+    <main class="content">
+      <slot />
+    </main>
+    <Footer />
+    <BackToTop />
+    <span id="device" class="screen-only"></span>
   </div>
 </template>
 
-<static-query>
-query {
-  metadata {
-    siteName
-  }
-}
-</static-query>
+<script>
+import AuthService from '../../services/AuthService';
 
-<style>
-body {
-  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  margin:0;
-  padding:0;
-  line-height: 1.5;
-}
+import Header from '~/components/layout/Header';
+import Footer from '~/components/layout/Footer';
+import BackToTop from '~/components/elements/BackToTop';
 
+export default {
+  data() {
+    return {
+      deviceWatcher: null,
+      device: '',
+      user: '',
+    };
+  },
+  async created() {
+    await this.checkAuth();
+  },
+  mounted() {
+    this.deviceWatcher = document.getElementById('device');
+    this.setDevice();
+    window.addEventListener('resize', this.setDevice);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.setDevice);
+  },
+  components: {
+    Header,
+    Footer,
+    BackToTop,
+  },
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    },
+  },
+  methods: {
+    setDevice() {
+      const device = getComputedStyle(
+        this.deviceWatcher,
+        ':after',
+      ).content.replace(/"/g, '');
+      if (this.device !== device) {
+        this.device = device;
+      }
+    },
+    async checkAuth() {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const { data } = await AuthService.ping(this.token);
+      } catch (error) {
+        this.handleError(error);
+      }
+    },
+    handleError(error) {
+      if (error && error.response && error.response.status === 401) {
+        if (this.token) {
+          this.$store.dispatch('logout');
+          if (
+            this.$route.path !== '/login' &&
+            this.$route.path === '/account'
+          ) {
+            this.$router.push('/login');
+          }
+        }
+      }
+    },
+  },
+};
+</script>
+<style lang="scss">
 .layout {
-  max-width: 760px;
+  max-width: 1190px;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
-}
+  padding: 0 12px;
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  height: 80px;
-}
-
-.nav__link {
-  margin-left: 20px;
+  .content {
+    min-height: calc(100vh - 280px);
+    padding: 72px 0;
+  }
 }
 </style>

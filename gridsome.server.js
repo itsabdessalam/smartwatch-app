@@ -1,40 +1,40 @@
-const { API_URL_WP } = require("./src/config");
+const WPService = require('./services/WPService');
+const { normalizeFields } = require('./utils/normalizer');
 
-const axios = require("axios");
+const getPosts = async actions => {
+  const { data } = await WPService.getPosts();
 
-const normalizeWordPressPost = (item) => {
-  return {
-    id: item.ID || item.id,
-    title: item.post_title,
-    slug: item.post_name,
-    date: item.post_date,
-    content: item.post_content,
-    type: item.post_type,
-    customFields: item.custom_fields,
-  };
-};
-
-const getPosts = async (actions) => {
-  const { data } = await axios.get(`${API_URL_WP}/posts`);
-  const collection = actions.addCollection("Post");
-  for (const item of data) {
-    collection.addNode(normalizeWordPressPost(item));
+  const collection = actions.addCollection('Post');
+  for (const post of data) {
+    collection.addNode(normalizeFields(post));
   }
 };
 
-const getProducts = async (actions) => {
-  const { data } = await axios.get(`${API_URL_WP}/products`);
-  const collection = actions.addCollection("Product");
-  for (const item of data) {
-    collection.addNode(normalizeWordPressPost(item));
+const getProducts = async actions => {
+  const { data } = await WPService.getProducts();
+  const productsCollection = actions.addCollection('Product');
+  const normalizedData = [];
+
+  for (const product of data) {
+    normalizedData.push(normalizeFields(product));
+    productsCollection.addNode(normalizeFields(product));
+  }
+
+  const brandsCollection = actions.addCollection('Brand');
+  const brands = [
+    ...new Set(normalizedData.map(item => item.brand && item.brand.name)),
+  ];
+
+  for (let index = 0; index < brands.length; index++) {
+    brandsCollection.addNode({ name: brands[index] });
   }
 };
 
-module.exports = (api) => {
-  api.loadSource(async (actions) => {
+module.exports = api => {
+  api.loadSource(async actions => {
     await getPosts(actions);
     await getProducts(actions);
   });
 
-  api.createPages(({ createPage }) => {});
+  api.createPages(() => {});
 };

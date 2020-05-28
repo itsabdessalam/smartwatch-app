@@ -1,42 +1,47 @@
 <template>
   <Layout>
-    <div class="post-title">
-      <h1 class="post-title__text">
-        {{ $page.post.title }}
-      </h1>
-    </div>
-
-    <div class="post content-box">
+    <div class="post">
       <div class="post__header">
+        <div class="post__title">
+          <h1 class="post__title__text">
+            {{ post.title }}
+          </h1>
+        </div>
         <g-image
-          alt="Cover image"
-          v-if="$page.post.customFields.image"
-          :src="$page.post.customFields.image"
+          v-if="post.image"
+          :alt="post.title"
+          :src="post.image"
+          class="post__cover"
         />
       </div>
-
-      <div class="post__content" v-html="$page.post.content" />
-
+      <div class="post__content" v-html="post.content" />
       <div class="post__footer"></div>
     </div>
-
-    <div class="post-comments"></div>
   </Layout>
 </template>
 
 <script>
 export default {
-  components: {},
   metaInfo() {
     return {
-      title: this.$page.post.title,
+      title: this.post.title,
       meta: [
         {
-          name: "description",
-          content: this.$page.post.description,
+          name: 'description',
+          content: this.post.description,
         },
       ],
     };
+  },
+  data() {
+    return {
+      post: {},
+    };
+  },
+  created() {
+    if (this.$page) {
+      this.post = this.$page.post;
+    }
   },
 };
 </script>
@@ -50,11 +55,15 @@ query Post ($id: ID!) {
         slug
         date
         type
-        customFields {
-            image
-        }
+        image
     }
 }
 </page-query>
 
-<style></style>
+<style lang="scss">
+.post {
+  .post__header {
+    margin-bottom: 24px;
+  }
+}
+</style>
