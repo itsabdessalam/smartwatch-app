@@ -4,68 +4,73 @@
       <h1>Account</h1>
       <Loader v-if="isLoading" class="loader--full" />
       <div v-else>
-        <div class="user__account">
-          <h2>Personal informations</h2>
-          <ul class="user__account__details">
-            <li class="user__account__details__item">
-              <span class="item__title">Name</span>
-              <span>{{ user.name }}</span>
-            </li>
-            <li class="user__account__details__item">
-              <span class="item__title">Email</span>
-              <span>{{ user.email }}</span>
-            </li>
-            <li class="user__account__details__item">
-              <span class="item__title">Account created on</span>
-              <span>{{ user.createdAt | toLocaleDate }}</span>
-            </li>
-            <li class="user__account__details__item">
-              <span class="item__title">Last connection time</span>
-              <span>{{ user.lastTimeConnectedAt | toLocaleDate }}</span>
-            </li>
-          </ul>
-        </div>
-        <div class="user__orders">
-          <h2>Orders</h2>
-          <div v-for="order in orders" :key="order._id" class="user__order">
-            <div class="user__order__details row">
-              <div class="user__order__details__item col-3">
-                <span class="item__title">Order</span>
-                <span>{{ order._id }}</span>
+        <div v-if="!error && orders.length">
+          <div class="user__account">
+            <h2>Personal informations</h2>
+            <ul class="user__account__details">
+              <li class="user__account__details__item">
+                <span class="item__title">Name</span>
+                <span>{{ user.name }}</span>
+              </li>
+              <li class="user__account__details__item">
+                <span class="item__title">Email</span>
+                <span>{{ user.email }}</span>
+              </li>
+              <li class="user__account__details__item">
+                <span class="item__title">Account created on</span>
+                <span>{{ user.createdAt | toLocaleDate }}</span>
+              </li>
+              <li class="user__account__details__item">
+                <span class="item__title">Last connection time</span>
+                <span>{{ user.lastTimeConnectedAt | toLocaleDate }}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="user__orders">
+            <h2>Orders</h2>
+            <div v-for="order in orders" :key="order._id" class="user__order">
+              <div class="user__order__details row">
+                <div class="user__order__details__item col-3">
+                  <span class="item__title">Order</span>
+                  <span>{{ order._id }}</span>
+                </div>
+                <div class="user__order__details__item col-3">
+                  <span class="item__title">Order date</span>
+                  <span>{{ order.createdAt | toLocaleDate }}</span>
+                </div>
+                <div class="user__order__details__item col-3">
+                  <span class="item__title">Status</span>
+                  <span>{{ order.status }}</span>
+                </div>
+                <div class="user__order__details__item col-3">
+                  <span class="item__title">Total</span>
+                  <span>{{ parseFloat(order.total / 100).toFixed(2) }} €</span>
+                </div>
               </div>
-              <div class="user__order__details__item col-3">
-                <span class="item__title">Order date</span>
-                <span>{{ order.createdAt | toLocaleDate }}</span>
+              <div class="user__order__products">
+                <span class="item__title">Products</span>
+                <ul>
+                  <li
+                    v-for="product in order.products"
+                    :key="product.id"
+                    class="user__order__product col-1"
+                  >
+                    <g-link :to="`/products/${product.slug}`">
+                      <g-image
+                        v-if="getProductImage(product.sku)"
+                        :src="`${getProductImage(product.sku)}`"
+                        width="60"
+                      />
+                      <span>{{ product.name.substring(0, 5) }}...</span>
+                    </g-link>
+                  </li>
+                </ul>
               </div>
-              <div class="user__order__details__item col-3">
-                <span class="item__title">Status</span>
-                <span>{{ order.status }}</span>
-              </div>
-              <div class="user__order__details__item col-3">
-                <span class="item__title">Total</span>
-                <span>{{ parseFloat(order.total / 100).toFixed(2) }} €</span>
-              </div>
-            </div>
-            <div class="user__order__products">
-              <span class="item__title">Products</span>
-              <ul>
-                <li
-                  v-for="product in order.products"
-                  :key="product.id"
-                  class="user__order__product col-1"
-                >
-                  <g-link :to="`/products/${product.slug}`">
-                    <g-image
-                      v-if="getProductImage(product.sku)"
-                      :src="`${getProductImage(product.sku)}`"
-                      width="60"
-                    />
-                    <span>{{ product.name.substring(0, 5) }}...</span>
-                  </g-link>
-                </li>
-              </ul>
             </div>
           </div>
+        </div>
+        <div v-else>
+          {{ error }}
         </div>
       </div>
     </ClientOnly>
