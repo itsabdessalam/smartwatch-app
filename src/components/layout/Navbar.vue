@@ -11,7 +11,11 @@
         <g-link class="nav__link" to="/news" title="News">News</g-link>
         <g-link class="nav__link" to="/contact" title="Contact">Contact</g-link>
         <div class="nav__link__icons">
-          <g-link class="nav__link nav__link--icon" to="/login" title="Login">
+          <g-link
+            class="nav__link nav__link--icon"
+            :to="isAuthenticated ? '/account' : '/login'"
+            :title="isAuthenticated ? 'Account' : 'Login'"
+          >
             <svg
               width="24"
               height="24"
@@ -141,6 +145,9 @@ export default {
     },
     cartCount() {
       return this.$store.getters.cartCount;
+    },
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
     },
   },
   methods: {

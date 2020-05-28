@@ -37,11 +37,10 @@ export default function(Vue, { appOptions, router, head, isClient }) {
       // if already authenticated
       // redirect  specified routes to dashboard
       if (
+        appOptions.store.getters.isAuthenticated &&
         routes.redirectToAccount.some(route => startsWith(to.fullPath, route))
       ) {
-        if (appOptions.store.getters.isAuthenticated) {
-          next('/account');
-        }
+        next('/account');
       }
     });
   }
