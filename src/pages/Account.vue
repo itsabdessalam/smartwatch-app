@@ -1,9 +1,16 @@
 <template>
   <Layout>
     <ClientOnly>
-      <h1>Account</h1>
       <Loader v-if="isLoading" class="loader--full" />
       <div v-else-if="!isLoading && !error">
+        <div class="page__header">
+          <h1 class="page__title">Account</h1>
+          <div class="page__actions">
+            <Button class="button--primary submit" @click.prevent="logout">
+              Logout
+            </Button>
+          </div>
+        </div>
         <div class="user__account">
           <h2>Personal informations</h2>
           <ul class="user__account__details">
@@ -91,7 +98,9 @@ query {
 
 <script>
 import UserService from '../../services/UserService';
+
 import Loader from '~/components/elements/Loader';
+import Button from '~/components/elements/Button';
 
 export default {
   metaInfo: {
@@ -118,6 +127,7 @@ export default {
   },
   components: {
     Loader,
+    Button,
   },
   async mounted() {
     await this.getUserOrders();
@@ -156,10 +166,25 @@ export default {
       const found = this.products.filter(product => product.sku === sku)[0];
       return (found && found.image) || null;
     },
+    logout() {
+      this.$store.dispatch('logout');
+      if (this.$route.path !== '/login') {
+        this.$router.push('/login');
+      }
+    },
   },
 };
 </script>
 <style lang="scss">
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .page__actions {
+    display: flex;
+  }
+}
 .item__title {
   font-size: 14px;
   color: $subtitle;
