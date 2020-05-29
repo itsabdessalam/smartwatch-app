@@ -138,11 +138,12 @@ export default {
           this.user.id,
           this.token,
         );
-        const { orders = [] } = data;
 
         if (!data) {
           throw new Error('No data was retrieved.');
         }
+
+        const { orders } = data.data || { orders: [] };
 
         this.orders = orders;
       } catch (error) {
