@@ -62,7 +62,10 @@
                     :key="product.id"
                     class="user__order__product col-1"
                   >
-                    <g-link :to="`/products/${product.slug}`">
+                    <g-link :to="`/products/${product.slug}`" class="product">
+                      <span class="product__quantity">{{
+                        product.quantity
+                      }}</span>
                       <g-image
                         v-if="getProductImage(product.sku)"
                         :src="`${getProductImage(product.sku)}`"
@@ -225,11 +228,29 @@ export default {
 
       .user__order__product {
         margin-top: 12px;
+        margin-right: 32px;
+        text-align: center;
+        position: relative;
 
         img {
           height: 100px;
           object-fit: contain;
           width: 60px;
+        }
+
+        .product__quantity {
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-size: 12px;
+          text-align: center;
+          align-items: center;
+          justify-content: center;
+          background-color: #000000;
+          color: #ffffff;
+          border-radius: 50%;
+          width: 16px;
+          height: 16px;
         }
       }
     }
