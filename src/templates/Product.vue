@@ -142,6 +142,10 @@ query Product ($id: ID!) {
       color: $subtitle;
     }
 
+    .product__price {
+      font-size: 18px;
+    }
+
     .product__actions {
       text-align: right;
       margin-top: 12px;

@@ -280,7 +280,7 @@ export default {
       }
 
       .product__preview {
-        height: 280px;
+        height: 200px;
         width: 100%;
         overflow: hidden;
         background-color: #ffffff;
@@ -303,6 +303,10 @@ export default {
           color: $subtitle;
           font-size: 14px;
         }
+
+        .product__price {
+          font-size: 18px;
+        }
       }
     }
   }
@@ -324,11 +328,6 @@ export default {
         background-color: #ffffff;
         padding: 16px;
         overflow: hidden;
-      }
-
-      .post__title {
-        font-size: 22px;
-        margin-bottom: 12px;
       }
 
       .post__date {
