@@ -71,6 +71,7 @@ export default {
           this.$router.push('/login');
         }
       }
+      throw error;
     },
   },
 };

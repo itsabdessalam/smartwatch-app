@@ -3,31 +3,31 @@
     <ClientOnly>
       <h1>Account</h1>
       <Loader v-if="isLoading" class="loader--full" />
-      <div v-else>
-        <div v-if="!error && orders.length">
-          <div class="user__account">
-            <h2>Personal informations</h2>
-            <ul class="user__account__details">
-              <li class="user__account__details__item">
-                <span class="item__title">Name</span>
-                <span>{{ user.name }}</span>
-              </li>
-              <li class="user__account__details__item">
-                <span class="item__title">Email</span>
-                <span>{{ user.email }}</span>
-              </li>
-              <li class="user__account__details__item">
-                <span class="item__title">Account created on</span>
-                <span>{{ user.createdAt | toLocaleDate }}</span>
-              </li>
-              <li class="user__account__details__item">
-                <span class="item__title">Last connection time</span>
-                <span>{{ user.lastTimeConnectedAt | toLocaleDate }}</span>
-              </li>
-            </ul>
-          </div>
-          <div class="user__orders">
-            <h2>Orders</h2>
+      <div v-else-if="!isLoading && !error">
+        <div class="user__account">
+          <h2>Personal informations</h2>
+          <ul class="user__account__details">
+            <li class="user__account__details__item">
+              <span class="item__title">Name</span>
+              <span>{{ user.name }}</span>
+            </li>
+            <li class="user__account__details__item">
+              <span class="item__title">Email</span>
+              <span>{{ user.email }}</span>
+            </li>
+            <li class="user__account__details__item">
+              <span class="item__title">Account created on</span>
+              <span>{{ user.createdAt | toLocaleDate }}</span>
+            </li>
+            <li class="user__account__details__item">
+              <span class="item__title">Last connection time</span>
+              <span>{{ user.lastTimeConnectedAt | toLocaleDate }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="user__orders">
+          <h2>Orders</h2>
+          <div v-if="orders.length">
             <div v-for="order in orders" :key="order.id" class="user__order">
               <div class="user__order__details row">
                 <div class="user__order__details__item col-3">
@@ -68,11 +68,10 @@
               </div>
             </div>
           </div>
-        </div>
-        <div v-else>
-          {{ error }}
+          <div v-else class="user__orders__status">No order yet</div>
         </div>
       </div>
+      <div v-else>{{ error }}</div>
     </ClientOnly>
   </Layout>
 </template>
@@ -139,7 +138,13 @@ export default {
           this.user.id,
           this.token,
         );
-        this.orders = data.data.orders;
+        const { orders = [] } = data;
+
+        if (!data) {
+          throw new Error('No data was retrieved.');
+        }
+
+        this.orders = orders;
       } catch (error) {
         this.error = error.message;
       } finally {
@@ -203,5 +208,13 @@ export default {
       }
     }
   }
+}
+
+.user__orders__status {
+  background-color: #ffffff;
+  padding: 48px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
