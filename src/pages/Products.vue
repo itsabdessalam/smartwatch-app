@@ -185,7 +185,7 @@ export default {
       }
 
       .product__preview {
-        height: 280px;
+        height: 200px;
         width: 100%;
         overflow: hidden;
         background-color: #ffffff;
@@ -207,6 +207,10 @@ export default {
         .product__brand {
           color: $subtitle;
           font-size: 14px;
+        }
+
+        .product__price {
+          font-size: 18px;
         }
       }
     }
