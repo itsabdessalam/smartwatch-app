@@ -42,7 +42,7 @@
                   <span>{{ order.id }}</span>
                 </div>
                 <div class="user__order__details__item col-3">
-                  <span class="item__title">Order date</span>
+                  <span class="item__title">Date</span>
                   <span>{{ order.createdAt | toLocaleDate }}</span>
                 </div>
                 <div class="user__order__details__item col-3">
