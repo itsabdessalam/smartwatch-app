@@ -68,7 +68,7 @@ span {
 
 .table td,
 .table th {
-  border: solid rgba(128, 128, 128, 0.1);
+  border: solid $background;
   border-width: 0 0 1px;
   padding: 16px 24px;
   vertical-align: middle;
