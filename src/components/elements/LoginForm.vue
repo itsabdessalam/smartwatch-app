@@ -40,7 +40,7 @@
       </template>
       <template #footer>
         <div class="inner__footer">
-          <g-link to="/register">
+          <g-link to="/contact">
             You do not have an account?
           </g-link>
           <Button
