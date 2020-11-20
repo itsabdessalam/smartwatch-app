@@ -1,5 +1,25 @@
 # Smartwatch app
 
+## Preview
+
+<img src="./preview/preview.jpg"/>
+
+## Workflow
+
+<img src="./preview/workflow.png"/>
+
+### Site
+https://github.com/itsabdessalam/smartwatch-app available at https://smartwatch.abdessalam.dev/
+
+### Node.js API
+https://github.com/itsabdessalam/smartwatch-api available at http://api.abdessalam.dev/
+
+### WordPress API
+https://github.com/itsabdessalam/smartwatch-wp available at https://store.abdessalam.dev/
+
+### Netlify functions
+https://github.com/itsabdessalam/smartwatch-functions available at https://functions.abdessalam.dev/
+
 ## 📦 Requirements
 
 This project should be working as expected with the following minimal version of:
@@ -83,3 +103,7 @@ GRIDSOME_API_URL_CONTACT=""
 ├── .env
 └── README.md
 ```
+
+## Author
+
+Abdessalam BENHARIRA
